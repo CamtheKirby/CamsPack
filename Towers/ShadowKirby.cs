@@ -1,6 +1,7 @@
 using BTD_Mod_Helper.Api.Display;
 using BTD_Mod_Helper.Api.Towers;
 using BTD_Mod_Helper.Extensions;
+using CamsPack;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
@@ -31,10 +32,11 @@ public class ShadowKirby : ModTower
 {
     public override TowerSet TowerSet => TowerSet.Magic;
     public override string BaseTower => TowerType.SuperMonkey;
-    public override int Cost => 590000;
+    public override int Cost => 1500000;
     public override int TopPathUpgrades => 0;
     public override int MiddlePathUpgrades => 5;
     public override int BottomPathUpgrades => 0;
+    public override bool DontAddToShop => !Settings.OpTowers == true;
     public override string Description => "....'The Bloons Are No Match For Me'....";
 
     public override bool Use2DModel => true;

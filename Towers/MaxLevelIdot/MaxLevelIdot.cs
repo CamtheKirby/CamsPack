@@ -20,6 +20,7 @@ using System.Linq;
 using Il2Cpp;
 using System.Collections.Generic;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors;
+using Kirby;
 
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
@@ -425,6 +426,7 @@ public class BTD7 : ModUpgrade<MaxLevelIdot>
         var B22 = Game.instance.model.GetTowerFromId("CaptainChurchill 12").GetAttackModel().Duplicate();
         B22.range = towerModel.range;
         B22.name = "D_Weapon";
+        B22.ApplyDisplay<NothingDisplay>();
         towerModel.AddBehavior(B22);
     }
 }
@@ -467,6 +469,7 @@ public class MrMaxIdot : ModUpgrade<MaxLevelIdot>
         var W2 = Game.instance.model.GetTowerFromId("DartlingGunner-520").GetAttackModel().Duplicate();
         W2.range = towerModel.range;
         W2.name = "F_Weapon";
+        W2.ApplyDisplay<NothingDisplay>();
         towerModel.AddBehavior(W2);
     }
 }

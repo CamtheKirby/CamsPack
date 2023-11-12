@@ -16,6 +16,8 @@ using UnityEngine;
 using Il2CppAssets.Scripts.Models.Towers.Weapons;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions;
+using CamsPack;
+using BTD_Mod_Helper.Api.ModOptions;
 
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
@@ -30,6 +32,7 @@ public class SandMonkey : ModTower
     public override int TopPathUpgrades => 5;
     public override int MiddlePathUpgrades => 2;
     public override int BottomPathUpgrades => 0;
+    public override bool DontAddToShop => !Settings.UnfinshedTowers == true;
     public override string Description => "Makes Sand to Stun and Slow the Bloons Down. Sanded bloons are immune to sharp damage (UNFINSHED)";
 
 

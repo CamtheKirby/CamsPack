@@ -10,6 +10,7 @@ using Il2CppAssets.Scripts.Unity.Display;
 using MelonLoader;
 using System;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
+using CamsPack;
 
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
@@ -25,7 +26,7 @@ public class SleepingMonkey : ModTower
     public override int MiddlePathUpgrades => 0;
     public override int BottomPathUpgrades => 0;
     public override string Description => "It's just a Monkey Sleeping!";
-
+    public override bool DontAddToShop => !Settings.UselessTowers == true;
     public override bool Use2DModel => true;
     public override string Icon => "SMIcon";
 

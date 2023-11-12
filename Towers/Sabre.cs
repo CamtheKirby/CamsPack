@@ -125,7 +125,7 @@ public class Sabre3 : ModTower
 
 public class PayDay : UpgradePlusPlus<SabrePath>
 {
-    public override int Cost => 2560;
+    public override int Cost => 4560;
     public override int Tier => 1;
     public override string Icon => "Paymeup";
     public override string Portrait => "Wizard1";

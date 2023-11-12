@@ -85,10 +85,50 @@ public class Kirby : ModTower
     }
     public override string Get2DTexture(int[] tiers)
     {
-        //if (tiers[3] == 1)
-        //{
-        // return "KirbyFireDisplay";
-        // }
+        if (tiers[0] == 3)
+        {
+            return "KirbyTop3";
+        }
+        if (tiers[0] == 4)
+        {
+            return "KirbyTop3";
+        }
+        if (tiers[0] == 5)
+        {
+            return "KirbyTop5";
+        }
+        if (tiers[1] == 3)
+        {
+            return "KirbyMiddle3";
+        }
+        if (tiers[1] == 4)
+        {
+            return "KirbyMiddle4";
+        }
+        if (tiers[1] == 5)
+        {
+            return "KirbyMiddle5";
+        }
+        if (tiers[2] == 1)
+        {
+         return "KirbyFireDisplay";
+        }
+        if (tiers[2] == 2)
+        {
+            return "KirbyBombDisplay";
+        }
+        if (tiers[2] == 3)
+        {
+            return "KirbyTornadoDisplay";
+        }
+        if (tiers[2] == 4)
+        {
+            return "KirbySparkDisplay";
+        }
+        if (tiers[2] == 5)
+        {
+            return "TheUltraSwordDisplay";
+        }
         return "KirbyDisplay";
     }
 }

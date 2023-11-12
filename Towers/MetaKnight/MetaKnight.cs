@@ -1,6 +1,7 @@
 using BTD_Mod_Helper.Api.Display;
 using BTD_Mod_Helper.Api.Towers;
 using BTD_Mod_Helper.Extensions;
+using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
@@ -8,9 +9,13 @@ using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Models.TowerSets;
+using Il2CppAssets.Scripts.Simulation.Behaviors;
 using Il2CppAssets.Scripts.Unity;
 using Il2CppAssets.Scripts.Unity.Display;
 using MelonLoader;
+using static Il2CppSystem.TypeIdentifiers;
+using Kirby;
+using WaddleDee;
 
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
@@ -26,11 +31,21 @@ namespace MetaKnight;
         Set2DTexture(node, "DMDisplay");
     }
 }
+
+public class BSDisplay : ModDisplay
+{
+    public override string BaseDisplay => Generic2dDisplay;
+
+    public override void ModifyDisplayNode(UnityDisplayNode node)
+    {
+        Set2DTexture(node, "BSDisplay");
+    }
+}
 public class MetaKnight : ModTower
 {
     public override TowerSet TowerSet => TowerSet.Magic;
     public override string BaseTower => TowerType.NinjaMonkey;
-    public override int Cost => 950;
+    public override int Cost => 830;
     public override int TopPathUpgrades => 5;
     public override int MiddlePathUpgrades => 5;
     public override int BottomPathUpgrades => 5;
@@ -53,6 +68,34 @@ public class MetaKnight : ModTower
     }
     public override string Get2DTexture(int[] tiers)
     {
+        if (tiers[0] == 5)
+        {
+            return "MetaKTop5";
+        }
+        if (tiers[1] == 3)
+        {
+            return "MetaKMiddle3";
+        }
+        if (tiers[1] == 4)
+        {
+            return "MetaKMiddle3";
+        }
+        if (tiers[1] == 5)
+        {
+            return "MetaKMiddle5";
+        }
+        if (tiers[2] == 3)
+        {
+            return "MetaKBottom3";
+        }
+        if (tiers[2] == 4)
+        {
+            return "MetaKBottom4";
+        }
+        if (tiers[2] == 5)
+        {
+            return "MetaKBottom5";
+        }
         return "MetaKDisplay";
     }
 }
@@ -116,7 +159,9 @@ public class WingBashing : ModUpgrade<MetaKnight>
        var Wings = Game.instance.model.GetTowerFromId("SentryCold").GetAttackModel().Duplicate();
         Wings.range = towerModel.range;
         Wings.name = " Wings_Weapon";
+        Wings.ApplyDisplay<NothingDisplay>();
         towerModel.AddBehavior(Wings);
+       
     }
 }
 
@@ -287,6 +332,7 @@ public class AButterfly : ModUpgrade<MetaKnight>
         var Buttert = Game.instance.model.GetTowerFromId("DartlingGunner-250").GetAttackModel().Duplicate();
         Buttert.range = towerModel.range;
         Buttert.name = " Buttert_Weapon";
+        Buttert.weapons[0].projectile.ApplyDisplay<BSDisplay>();
         towerModel.AddBehavior(Buttert);
     }
 }
@@ -399,6 +445,7 @@ public class OverTakingDarkness : ModUpgrade<MetaKnight>
         broThisIsTheMostEdgynessUpgradeever.range = towerModel.range + 12;
         broThisIsTheMostEdgynessUpgradeever.name = "broThisIsTheMostEdgynessUpgradeever_Weapon";
         broThisIsTheMostEdgynessUpgradeever.weapons[0].projectile.GetDamageModel().damage =+ 50;
+        broThisIsTheMostEdgynessUpgradeever.ApplyDisplay<NothingDisplay>();
         towerModel.AddBehavior(broThisIsTheMostEdgynessUpgradeever);
     }
 }
@@ -407,7 +454,7 @@ public class OverTakingDarkness : ModUpgrade<MetaKnight>
 public class KnightMerge : ModParagonUpgrade<MetaKnight>
 {
     public override int Cost => 807144;
-    public override string Description => "How About We Merge All the Knights! (NOTE: I Don't Know How To Change The Paragon Model";
+    public override string Description => "How About We Merge All the Knights!";
     public override string DisplayName => "The Merged Knight";
 
     public override void ApplyUpgrade(TowerModel towerModel)
