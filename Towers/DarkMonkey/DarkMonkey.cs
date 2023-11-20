@@ -37,9 +37,9 @@ public class CJugDisplay : ModDisplay
         Set2DTexture(node, "CJugDisplay");
     }
 }
-public class DarkMonkey : ModTower
+public class DarkMonkey : ModTower<CamsPack.JokeTowers>
 {
-    public override TowerSet TowerSet => TowerSet.Primary;
+   // public override TowerSet TowerSet => TowerSet.Primary;
     public override string BaseTower => TowerType.DartMonkey;
     public override int Cost => 675;
     public override int TopPathUpgrades => 5;
@@ -53,17 +53,17 @@ public class DarkMonkey : ModTower
     public override ParagonMode ParagonMode => ParagonMode.Base555;
     public override void ModifyBaseTowerModel(TowerModel towerModel)
     {
-
-        towerModel.GetAttackModel().weapons[0].projectile = Game.instance.model.GetTower(TowerType.DartMonkey).GetAttackModel().weapons[0].projectile.Duplicate();
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].projectile = Game.instance.model.GetTower(TowerType.DartMonkey).GetAttackModel().weapons[0].projectile.Duplicate();
         towerModel.GetAttackModel().range = 40;
         towerModel.range = 40;
-        towerModel.GetAttackModel().weapons[0].projectile.pierce = 30;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 4;
+        attackModel.weapons[0].projectile.pierce = 30;
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 4;
     }
 
     public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
     {
-        return towerSet.First(model => model.towerId == TowerType.DartMonkey).towerIndex + 1;
+        return towerSet.First(model => model.towerId == TowerType.GlueGunner).towerIndex + 1;
     }
     public class DarkMonkeyDisplay : ModTowerDisplay<DarkMonkey>
     {
@@ -99,7 +99,8 @@ public class DarkMonkey : ModTower
 
             public override void ApplyUpgrade(TowerModel towerModel)
             {
-                towerModel.GetAttackModel().weapons[0].projectile.pierce += 50;
+                var attackModel = towerModel.GetAttackModel();
+                attackModel.weapons[0].projectile.pierce += 50;
             }
 
         }
@@ -119,7 +120,8 @@ public class DarkMonkey : ModTower
 
             public override void ApplyUpgrade(TowerModel towerModel)
             {
-                towerModel.GetAttackModel().weapons[0].projectile.pierce += 100;
+                var attackModel = towerModel.GetAttackModel();
+                attackModel.weapons[0].projectile.pierce += 100;
 
                 var RS = Game.instance.model.GetTowerFromId("TackShooter-032").GetAttackModel().Duplicate();
                 RS.range = towerModel.range;
@@ -144,7 +146,8 @@ public class DarkMonkey : ModTower
 
             public override void ApplyUpgrade(TowerModel towerModel)
             {
-                towerModel.GetAttackModel().weapons[0].projectile.pierce += 100;
+                var attackModel = towerModel.GetAttackModel();
+                attackModel.weapons[0].projectile.pierce += 100;
 
                 var RS2 = Game.instance.model.GetTowerFromId("TackShooter-203").GetAttackModel().Duplicate();
                 RS2.range = towerModel.range;
@@ -169,13 +172,14 @@ public class DarkMonkey : ModTower
 
             public override void ApplyUpgrade(TowerModel towerModel)
             {
+                var attackModel = towerModel.GetAttackModel();
                 var Alch = Game.instance.model.GetTowerFromId("IceMonkey-024").GetAttackModel().Duplicate();
                 Alch.range = towerModel.range;
                 Alch.name = "C_Weapon";
                 Alch.weapons[0].projectile.ApplyDisplay<JugDisplay>();
                 towerModel.AddBehavior(Alch);
-                towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
-                towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 50;
+                attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
+                attackModel.weapons[0].projectile.GetDamageModel().damage = 50;
             }
 
         }
@@ -195,11 +199,12 @@ public class DarkMonkey : ModTower
 
             public override void ApplyUpgrade(TowerModel towerModel)
             {
+                var attackModel = towerModel.GetAttackModel();
                 var Alch2 = Game.instance.model.GetTowerFromId("BoomerangMonkey-502").GetAttackModel().Duplicate();
                 Alch2.range = towerModel.range;
                 Alch2.name = "D_Weapon";
                 Alch2.weapons[0].projectile.ApplyDisplay<CJugDisplay>();
-                towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 169;
+                attackModel.weapons[0].projectile.GetDamageModel().damage = 169;
                 Alch2.weapons[0].rate *= .2f;
                 towerModel.AddBehavior(Alch2);
             }
@@ -221,7 +226,8 @@ public class DarkMonkey : ModTower
 
         public override void ApplyUpgrade(TowerModel towerModel)
         {
-            towerModel.GetAttackModel().weapons[0].rate = .6f;
+            var attackModel = towerModel.GetAttackModel();
+            attackModel.weapons[0].rate = .6f;
         }
 
     }
@@ -242,7 +248,8 @@ public class VeryShortDarts : ModUpgrade<DarkMonkey>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].rate = .4f;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].rate = .4f;
     }
 
 }
@@ -290,8 +297,9 @@ public class LongSuperMonkeyFanClub : ModUpgrade<DarkMonkey>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 10;
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 15;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 10;
+        attackModel.weapons[0].projectile.pierce += 15;
 
         var Ability = Game.instance.model.GetTower(TowerType.DartMonkey, 0, 4, 0).GetAbilities()[0].Duplicate();
         Ability.maxActivationsPerRound = 9999999;

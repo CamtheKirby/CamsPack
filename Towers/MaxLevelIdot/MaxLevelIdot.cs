@@ -21,6 +21,7 @@ using Il2Cpp;
 using System.Collections.Generic;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors;
 using Kirby;
+using CamsPack;
 
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
@@ -159,9 +160,9 @@ public class MaxHatSDisplay : ModDisplay
         Set2DTexture(node, "MaxHatSDisplay");
     }
 }
-public class MaxLevelIdot : ModTower
+public class MaxLevelIdot : ModTower<YoutubeTowers>
 {
-    public override TowerSet TowerSet => TowerSet.Primary;
+   // public override TowerSet TowerSet => TowerSet.Primary;
     public override string BaseTower => TowerType.BoomerangMonkey;
     public override int Cost => 700;
     public override int TopPathUpgrades => 5;
@@ -180,7 +181,10 @@ public class MaxLevelIdot : ModTower
      towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 2;
      towerModel.GetAttackModel().weapons[0].projectile.ApplyDisplay<MaxHatDisplay>();
     }
-
+    public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
+    {
+        return towerSet.First(model => model.towerId == TowerType.DartlingGunner).towerIndex + 1;
+    }
     public override string Get2DTexture(int[] tiers)
     {
         return "MLIDisplay";
@@ -310,7 +314,6 @@ public class RocketMinions : ModUpgrade<MaxLevelIdot>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        var attackModel = towerModel.GetAttackModel();
         var minon = Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModel().Duplicate();
         minon.range = towerModel.range;
         minon.name = "Minon_Weapon";

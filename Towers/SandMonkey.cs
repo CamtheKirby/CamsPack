@@ -18,15 +18,16 @@ using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions;
 using CamsPack;
 using BTD_Mod_Helper.Api.ModOptions;
+using Il2CppAssets.Scripts.Simulation.Towers.Behaviors;
 
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
 namespace SandMonkey;
 
 
-public class SandMonkey : ModTower
+public class SandMonkey : ModTower<CamsPack.CamsTowers>
 {
-    public override TowerSet TowerSet => TowerSet.Primary;
+   // public override TowerSet TowerSet => TowerSet.Primary;
     public override string BaseTower => TowerType.GlueGunner;
     public override int Cost => 895;
     public override int TopPathUpgrades => 5;
@@ -55,7 +56,7 @@ public class SandMonkey : ModTower
     }
     public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
     {
-        return towerSet.First(model => model.towerId == TowerType.IceMonkey).towerIndex + 1;
+        return towerSet.First(model => model.towerId == TowerType.GlueGunner).towerIndex + 1;
     }
 
     public class SandMonkeyDisplay : ModTowerDisplay<SandMonkey>

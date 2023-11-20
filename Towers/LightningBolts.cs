@@ -10,15 +10,18 @@ using Il2CppAssets.Scripts.Unity.Display;
 using MelonLoader;
 using System;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
+using System.Collections.Generic;
+using System.Linq;
+using Il2Cpp;
 
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
 namespace LightningBolts;
 
 
-public class LightningBolts : ModTower
+public class LightningBolts : ModTower<CamsPack.CamsTowers>
 {
-    public override TowerSet TowerSet => TowerSet.Support;
+//    public override TowerSet TowerSet => TowerSet.Support;
     public override string BaseTower => TowerType.DartMonkey;
     public override int Cost => 2450;
     public override int TopPathUpgrades => 0;
@@ -43,7 +46,10 @@ public class LightningBolts : ModTower
         towerModel.towerSelectionMenuThemeId = "Camo";
         towerModel.GetAttackModel().weapons[0].projectile.pierce = 35;
     }
-
+    public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
+    {
+        return towerSet.First(model => model.towerId == TowerType.GlueGunner).towerIndex + 1;
+    }
     public override string Get2DTexture(int[] tiers)
     {
         return "LBDisplay";

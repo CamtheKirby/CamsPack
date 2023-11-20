@@ -18,9 +18,9 @@ using System.Linq;
 namespace CamsNinjaMonkey;
 
 
-public class CamsNinjaMonkey : ModTower
+public class CamsNinjaMonkey : ModTower<CamsPack.CamsTowers>
 {
-    public override TowerSet TowerSet => TowerSet.Magic;
+  //  public override TowerSet TowerSet => TowerSet.Magic;
     public override string BaseTower => TowerType.NinjaMonkey;
     public override int Cost => 570;
     public override int TopPathUpgrades => 0;
@@ -42,7 +42,7 @@ public class CamsNinjaMonkey : ModTower
     }
     public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
     {
-        return towerSet.First(model => model.towerId == TowerType.NinjaMonkey).towerIndex + 1;
+        return towerSet.First(model => model.towerId == TowerType.GlueGunner).towerIndex + 1;
     }
     public class CamsNinjaMonkeyDisplay : ModTowerDisplay<CamsNinjaMonkey>
     {

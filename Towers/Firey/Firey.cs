@@ -13,6 +13,8 @@ using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using MaxLevelIdot;
 using Il2Cpp;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+using System.Collections.Generic;
+using System.Linq;
 
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
@@ -159,9 +161,9 @@ public class FSBG : ModTower
 
 
 
-public class Firey : ModTower
+public class Firey : ModTower<CamsPack.BfdiTowers>
 {
-    public override TowerSet TowerSet => TowerSet.Magic;
+   // public override TowerSet TowerSet => TowerSet.Magic;
     public override string BaseTower => TowerType.DartMonkey;
     public override int Cost => 350;
     public override int TopPathUpgrades => 5;
@@ -184,6 +186,10 @@ public class Firey : ModTower
         towerModel.GetAttackModel().weapons[0].projectile.ApplyDisplay<FireFDisplay>();
         var Fire = Game.instance.model.GetTower(TowerType.MortarMonkey, 0, 0, 2).GetAttackModel().weapons[0].projectile.GetBehavior<CreateProjectileOnExhaustFractionModel>().projectile.GetBehavior<AddBehaviorToBloonModel>();
         towerModel.GetAttackModel().weapons[0].projectile.AddBehavior(Fire);
+    }
+    public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
+    {
+        return towerSet.First(model => model.towerId == TowerType.Druid).towerIndex + 1;
     }
 
     public override string Get2DTexture(int[] tiers)

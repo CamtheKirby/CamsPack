@@ -9,6 +9,9 @@ using Il2CppAssets.Scripts.Models.TowerSets;
 using Il2CppAssets.Scripts.Unity;
 using Il2CppAssets.Scripts.Unity.Display;
 using MelonLoader;
+using System.Collections.Generic;
+using System.Linq;
+
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
 namespace ShadowKirby;
@@ -28,9 +31,9 @@ public class SKirbyBuffIcon : ModBuffIcon
     public override int MaxStackSize => 5;
 }
 
-public class ShadowKirby : ModTower
+public class ShadowKirby : ModTower<KirbyTowers>
 {
-    public override TowerSet TowerSet => TowerSet.Magic;
+    //public override TowerSet TowerSet => TowerSet.Magic;
     public override string BaseTower => TowerType.SuperMonkey;
     public override int Cost => 1500000;
     public override int TopPathUpgrades => 0;
@@ -57,6 +60,11 @@ public class ShadowKirby : ModTower
         towerModel.GetAttackModel().weapons[0].projectile.pierce = 1000;
         towerModel.GetWeapon().projectile.AddBehavior(new DamageModifierForTagModel("DamageModifierForTagModel", "Moabs", 1, 185, false, true));
         towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
+    }
+
+    public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
+    {
+        return towerSet.First(model => model.towerId == TowerType.Druid).towerIndex + 1;
     }
     public override string Get2DTexture(int[] tiers)
     {

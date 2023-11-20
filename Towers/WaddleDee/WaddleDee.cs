@@ -14,6 +14,8 @@ using CamsPack;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
@@ -39,9 +41,9 @@ public class UmbrellaDisplay : ModDisplay
     }
 }
 
-public class WaddleDee : ModTower
+public class WaddleDee : ModTower<KirbyTowers>
 {
-    public override TowerSet TowerSet => TowerSet.Support;
+    //public override TowerSet TowerSet => TowerSet.Support;
     public override string BaseTower => TowerType.DartMonkey;
     public override int Cost => 500;
     public override int TopPathUpgrades => 5;
@@ -61,6 +63,10 @@ public class WaddleDee : ModTower
         towerModel.GetAttackModel().weapons[0].projectile.ApplyDisplay<WahDisplay>();
         towerModel.GetAttackModel().weapons[0].rate *= .7f;
         towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 2;
+    }
+    public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
+    {
+        return towerSet.First(model => model.towerId == TowerType.Druid).towerIndex + 1;
     }
     public override string Get2DTexture(int[] tiers)
     {

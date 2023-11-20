@@ -16,6 +16,8 @@ using MelonLoader;
 using static Il2CppSystem.TypeIdentifiers;
 using Kirby;
 using WaddleDee;
+using System.Collections.Generic;
+using System.Linq;
 
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
@@ -41,9 +43,9 @@ public class BSDisplay : ModDisplay
         Set2DTexture(node, "BSDisplay");
     }
 }
-public class MetaKnight : ModTower
+public class MetaKnight : ModTower<CamsPack.KirbyTowers>
 {
-    public override TowerSet TowerSet => TowerSet.Magic;
+   // public override TowerSet TowerSet => TowerSet.Magic;
     public override string BaseTower => TowerType.NinjaMonkey;
     public override int Cost => 830;
     public override int TopPathUpgrades => 5;
@@ -65,6 +67,10 @@ public class MetaKnight : ModTower
         towerModel.GetAttackModel().range = Game.instance.model.GetTower(TowerType.Sauda).GetAttackModel().range;
         towerModel.range = Game.instance.model.GetTower(TowerType.Sauda).range;
         towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
+    }
+    public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
+    {
+        return towerSet.First(model => model.towerId == TowerType.Druid).towerIndex + 1;
     }
     public override string Get2DTexture(int[] tiers)
     {

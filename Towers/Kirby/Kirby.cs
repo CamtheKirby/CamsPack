@@ -8,6 +8,8 @@ using Il2CppAssets.Scripts.Models.TowerSets;
 using Il2CppAssets.Scripts.Unity;
 using Il2CppAssets.Scripts.Unity.Display;
 using MelonLoader;
+using System.Collections.Generic;
+using System.Linq;
 
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
@@ -61,9 +63,9 @@ public class KirbyBuffIcon : ModBuffIcon
     public override int MaxStackSize => 1;
 }
 
-public class Kirby : ModTower
+public class Kirby : ModTower<CamsPack.KirbyTowers>
 {
-    public override TowerSet TowerSet => TowerSet.Magic;
+   // public override TowerSet TowerSet => TowerSet.Magic;
     public override string BaseTower => TowerType.DartMonkey;
     public override int Cost => 825;
     public override int TopPathUpgrades => 5;
@@ -82,6 +84,11 @@ public class Kirby : ModTower
         towerModel.GetAttackModel().weapons[0].projectile = Game.instance.model.GetTower(TowerType.MonkeySub).GetAttackModel().weapons[0].projectile.Duplicate();
         towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
         towerModel.GetAttackModel().weapons[0].projectile.ApplyDisplay<NothingDisplay>();
+    }
+
+    public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
+    {
+        return towerSet.First(model => model.towerId == TowerType.Druid).towerIndex + 1;
     }
     public override string Get2DTexture(int[] tiers)
     {

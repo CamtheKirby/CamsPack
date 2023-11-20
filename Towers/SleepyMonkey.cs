@@ -11,15 +11,17 @@ using MelonLoader;
 using System;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using CamsPack;
+using System.Collections.Generic;
+using System.Linq;
 
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
 namespace SleepingMonkey;
 
 
-public class SleepingMonkey : ModTower
+public class SleepingMonkey : ModTower<JokeTowers>
 {
-    public override TowerSet TowerSet => TowerSet.Primary;
+    
     public override string BaseTower => TowerType.DartMonkey;
     public override int Cost => 0;
     public override int TopPathUpgrades => 0;
@@ -36,7 +38,10 @@ public class SleepingMonkey : ModTower
     {
         towerModel.RemoveBehavior<AttackModel>();
     }
-
+    public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
+    {
+        return towerSet.First(model => model.towerId == TowerType.GlueGunner).towerIndex + 1;
+    }
     public override string Get2DTexture(int[] tiers)
     {
         return "SMDisplay";
