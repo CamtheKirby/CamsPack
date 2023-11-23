@@ -155,7 +155,7 @@ public class Sabres : UpgradePlusPlus<SabrePath>
         towerModel.GetBehavior<PerRoundCashBonusTowerModel>().cashPerRound = 506;
 
         var attackModel = towerModel.GetAttackModel();
-        var minon = Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModel().Duplicate();
+        var minon = Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModels()[1].Duplicate();
         minon.range = towerModel.range;
         minon.name = "Minon_Weapon";
         minon.weapons[0].Rate = 9f;
@@ -201,7 +201,7 @@ public class MadSabres : UpgradePlusPlus<SabrePath>
 
     public override void ApplyUpgrade(TowerModel towerModel, int tier)
     {
-        var minon2 = Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModel().Duplicate();
+        var minon2 = Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModels()[1].Duplicate();
         minon2.range = towerModel.range;
         minon2.name = "Minon2_Weapon";
         minon2.weapons[0].Rate = 7f;
@@ -232,7 +232,7 @@ public class Player3 : UpgradePlusPlus<SabrePath>
 
     public override void ApplyUpgrade(TowerModel towerModel, int tier)
     {
-        var minon3 = Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModel().Duplicate();
+        var minon3 = Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModels()[1].Duplicate();
         minon3.range = towerModel.range;
         minon3.name = "Minon3_Weapon";
         minon3.weapons[0].Rate = 15;

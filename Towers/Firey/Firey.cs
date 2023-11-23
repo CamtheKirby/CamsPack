@@ -95,11 +95,10 @@ public class Laser2Display : ModDisplay
         Set2DTexture(node, "Laser2Display");
     }
 }
-public class FSB : ModTower
+public class FSB : ModTower<CamsPack.BfdiTowers>
 {
     public override string Portrait => "FireyBoxlcon";
     public override string Name => "Firey Speaker Box";
-    public override TowerSet TowerSet => TowerSet.Primary;
     public override string BaseTower => "DartMonkey-202";
 
     public override bool DontAddToShop => true;
@@ -128,11 +127,10 @@ public class FSB : ModTower
     }
 }
 
-public class FSBG : ModTower
+public class FSBG : ModTower<CamsPack.BfdiTowers>
 {
     public override string Portrait => "FireyBoxGlcon";
     public override string Name => " Giant Firey Speaker Box";
-    public override TowerSet TowerSet => TowerSet.Primary;
     public override string BaseTower => "DartMonkey-302";
 
     public override bool DontAddToShop => true;
@@ -381,7 +379,7 @@ public class ForestFire : ModUpgrade<Firey>
 
         public override void ApplyUpgrade(TowerModel towerModel)
         {
-            var minonF = Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModel().Duplicate();
+            var minonF = Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModels()[1].Duplicate();
             minonF.range = towerModel.range;
             minonF.name = "Minon_Weapon";
             minonF.weapons[0].Rate = 35;
@@ -402,7 +400,7 @@ public class ForestFire : ModUpgrade<Firey>
             {
                 var Ability = Game.instance.model.GetTower(TowerType.BombShooter, 0, 4, 0).GetAbilities()[0].Duplicate();
 
-                AttackModel[] support = { Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModel().Duplicate()};
+                AttackModel[] support = { Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModels()[1].Duplicate()};
                 support[0].weapons[0].projectile.RemoveBehavior<CreateTowerModel>();
 
                 support[0].weapons[0].projectile.AddBehavior(new CreateTowerModel("CreateTowerInAbility", GetTowerModel<FSBG>(), 0, true, false, false, true, false));
@@ -551,7 +549,7 @@ public class ForestFire : ModUpgrade<Firey>
 
                 var Ability = Game.instance.model.GetTower(TowerType.BombShooter, 0, 4, 0).GetAbilities()[0].Duplicate();
 
-                AttackModel[] support = { Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModel().Duplicate() };
+                AttackModel[] support = { Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModels()[1].Duplicate() };
                 support[0].weapons[0].projectile.RemoveBehavior<CreateTowerModel>();
 
                 support[0].weapons[0].projectile.AddBehavior(new CreateTowerModel("CreateTowerInAbility", GetTowerModel<FSBG>(), 0, true, false, false, true, false));
