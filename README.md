@@ -8,3 +8,5 @@
 (Requires Paths Plus Plus https://github.com/doombubbles/paths-plus-plus) All my mods in one pack!
 
 [![Requires BTD6 Mod Helper](https://raw.githubusercontent.com/gurrenm3/BTD-Mod-Helper/master/banner.png)](https://github.com/gurrenm3/BTD-Mod-Helper#readme)
+
+![GitHub all releases](https://img.shields.io/github/downloads/CamtheKirby/CamsPack/total)
