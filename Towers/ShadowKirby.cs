@@ -49,17 +49,18 @@ public class ShadowKirby : ModTower<KirbyTowers>
 
     public override void ModifyBaseTowerModel(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].projectile = Game.instance.model.GetTower(TowerType.SuperMonkey, 2, 0, 5).GetAttackModel().weapons[0].projectile.Duplicate();
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
-        towerModel.GetAttackModel().weapons[0].projectile.ApplyDisplay<ShadDisplay>();
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].projectile = Game.instance.model.GetTower(TowerType.SuperMonkey, 2, 0, 5).GetAttackModel().weapons[0].projectile.Duplicate();
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
+        attackModel.weapons[0].projectile.ApplyDisplay<ShadDisplay>();
         towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel", true));
         towerModel.towerSelectionMenuThemeId = "Camo";
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 1500000;
-        towerModel.GetAttackModel().range += 50;
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 1500000;
+        attackModel.range += 50;
         towerModel.range += 50;
-        towerModel.GetAttackModel().weapons[0].projectile.pierce = 1000;
+        attackModel.weapons[0].projectile.pierce = 1000;
         towerModel.GetWeapon().projectile.AddBehavior(new DamageModifierForTagModel("DamageModifierForTagModel", "Moabs", 1, 185, false, true));
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
     }
 
     public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
@@ -138,12 +139,13 @@ public class ShadowSpread : ModUpgrade<ShadowKirby>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
+        var attackModel = towerModel.GetAttackModel();
         var TornadoS = Game.instance.model.GetTowerFromId("Druid-520").GetAttackModel().Duplicate();
         TornadoS.range = towerModel.range;
         TornadoS.name = "TornadoS_Weapon";
         towerModel.AddBehavior(TornadoS);
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 2;
-        towerModel.GetAttackModel().range += 1;
+        attackModel.weapons[0].projectile.pierce += 2;
+        attackModel.range += 1;
         TornadoS.weapons[0].projectile.GetDamageModel().damage = 1500000;
         towerModel.range += 1;
 
@@ -170,7 +172,8 @@ public class ShadowCopy : ModUpgrade<ShadowKirby>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].rate *= .003f;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].rate *= .003f;
 
         var buffM1S = new RateSupportModel("RateSupport1", 0.96f, true, "ShadowKirby:Rate", false, 1, null, null, null);
         buffM1S.ApplyBuffIcon<SKirbyBuffIcon>();
@@ -194,7 +197,7 @@ public class ShadowDeath : ModUpgrade<ShadowKirby>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-
+        var attackModel = towerModel.GetAttackModel();
         var Ability = Game.instance.model.GetTower(TowerType.DartlingGunner, 0, 5, 0).GetAbilities()[0].Duplicate();
         Ability.maxActivationsPerRound = 9999999;
         Ability.canActivateBetweenRounds = true;
@@ -203,8 +206,8 @@ public class ShadowDeath : ModUpgrade<ShadowKirby>
         Ability.icon = GetSpriteReference("KirbyPath4Icon_Icon");
         towerModel.AddBehavior(Ability);
 
-        var AttackModel = towerModel.GetAttackModel();
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 2140000;
+        var AttackModel = attackModel;
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 2140000;
 
         var OP = Game.instance.model.GetTowerFromId("Druid-025").GetAttackModel().Duplicate();
         OP.range = towerModel.range;
@@ -213,7 +216,7 @@ public class ShadowDeath : ModUpgrade<ShadowKirby>
         OP.weapons[0].projectile.GetDamageModel().damage = 99999999;
         OP.weapons[0].projectile.pierce = 9999999999999999999;
 
-        towerModel.GetAttackModel().range += 9999999999;
+        attackModel.range += 9999999999;
         towerModel.range += 99999999999;
 
     
@@ -225,8 +228,8 @@ public class ShadowDeath : ModUpgrade<ShadowKirby>
         UltraSwordS.weapons[0].projectile.GetDamageModel().damage = 20000;
         towerModel.AddBehavior(UltraSwordS);
         towerModel.GetWeapon().projectile.AddBehavior(new DamageModifierForTagModel("DamageModifierForTagModel", "Moabs", 1, 485, false, true));
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 1000;
-        towerModel.GetAttackModel().range += 50;
+        attackModel.weapons[0].projectile.pierce += 1000;
+        attackModel.range += 50;
         towerModel.range += 50;
     }
 }

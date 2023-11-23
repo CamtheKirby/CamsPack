@@ -177,9 +177,10 @@ public class MaxLevelIdot : ModTower<YoutubeTowers>
     public override ParagonMode ParagonMode => ParagonMode.Base555;
     public override void ModifyBaseTowerModel(TowerModel towerModel)
     {
-     towerModel.GetAttackModel().weapons[0].projectile = Game.instance.model.GetTower(TowerType.BoomerangMonkey).GetAttackModel().weapons[0].projectile.Duplicate();
-     towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 2;
-     towerModel.GetAttackModel().weapons[0].projectile.ApplyDisplay<MaxHatDisplay>();
+     var attackModel = towerModel.GetAttackModel();
+     attackModel.weapons[0].projectile = Game.instance.model.GetTower(TowerType.BoomerangMonkey).GetAttackModel().weapons[0].projectile.Duplicate();
+     attackModel.weapons[0].projectile.GetDamageModel().damage = 2;
+     attackModel.weapons[0].projectile.ApplyDisplay<MaxHatDisplay>();
     }
     public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
     {
@@ -201,7 +202,8 @@ public class LongerHat : ModUpgrade<MaxLevelIdot>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 5;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].projectile.pierce += 5;
     }
 }
 
@@ -215,8 +217,9 @@ public class SpikeyHat : ModUpgrade<MaxLevelIdot>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage += 2;
-        towerModel.GetAttackModel().weapons[0].projectile.ApplyDisplay<MaxHatSDisplay>();
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 2;
+        attackModel.weapons[0].projectile.ApplyDisplay<MaxHatSDisplay>();
     }
 }
 
@@ -230,7 +233,8 @@ public class ButterflyClicks : ModUpgrade<MaxLevelIdot>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].rate -= .3f;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].rate -= .3f;
     }
 }
 
@@ -263,6 +267,7 @@ public class Level1000Boss : ModUpgrade<MaxLevelIdot>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
+        var attackModel = towerModel.GetAttackModel();
         var Mafia2 = Game.instance.model.GetTowerFromId("BombShooter-205").GetAttackModel().Duplicate();
         Mafia2.range = towerModel.range;
         Mafia2.name = "B_Weapon";
@@ -271,8 +276,8 @@ public class Level1000Boss : ModUpgrade<MaxLevelIdot>
         towerModel.AddBehavior(Game.instance.model.GetTowerFromId("BananaFarm-005").GetBehavior<PerRoundCashBonusTowerModel>().Duplicate());
         towerModel.GetBehavior<PerRoundCashBonusTowerModel>().cashPerRound = 670;
 
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage += 25;
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 35;
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 25;
+        attackModel.weapons[0].projectile.pierce += 35;
     }
 }
 
@@ -286,7 +291,8 @@ public class StrongArm : ModUpgrade<MaxLevelIdot>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].rate -= .1f;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].rate -= .1f;
     }
 }
 
@@ -300,7 +306,8 @@ public class StrongerArm : ModUpgrade<MaxLevelIdot>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].rate -= .2f;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].rate -= .2f;
     }
 }
 
@@ -314,12 +321,11 @@ public class RocketMinions : ModUpgrade<MaxLevelIdot>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        var minon = Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModel().Duplicate();
+        var minon = Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModels()[1].Duplicate();
         minon.range = towerModel.range;
         minon.name = "Minon_Weapon";
         minon.weapons[0].Rate = 13f;
         minon.weapons[0].projectile.RemoveBehavior<CreateTowerModel>();
-    //    farm.weapons[0].projectile.ApplyDisplay<weapondisplays.BananaDisplay>();
         minon.weapons[0].projectile.AddBehavior(new CreateTowerModel("DartlingGunner230place", GetTowerModel<DartlingGunner230>().Duplicate(), 0f, true, false, false, true, true));
         towerModel.AddBehavior(minon);
     }
@@ -335,9 +341,10 @@ public class RocketPower : ModUpgrade<MaxLevelIdot>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 6;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage += 3;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].projectile.pierce += 6;
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 3;
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
 
 
         var Ability = Game.instance.model.GetTower(TowerType.DartlingGunner, 2, 4, 0).GetAbilities()[0].Duplicate();
@@ -359,7 +366,7 @@ public class StickyArmy : ModUpgrade<MaxLevelIdot>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        var minon2 = Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModel().Duplicate();
+        var minon2 = Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModels()[1].Duplicate();
         minon2.range = towerModel.range;
         minon2.name = "Minon2_Weapon";
         minon2.weapons[0].Rate = 10f;
@@ -368,7 +375,7 @@ public class StickyArmy : ModUpgrade<MaxLevelIdot>
         minon2.weapons[0].projectile.AddBehavior(new CreateTowerModel("NinjaMonkey204place", GetTowerModel<NinjaMonkey204>().Duplicate(), 0f, true, false, false, true, true));
         towerModel.AddBehavior(minon2);
 
-        var minon3 = Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModel().Duplicate();
+        var minon3 = Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModels()[1].Duplicate();
         minon3.range = towerModel.range;
         minon3.name = "Minon3_Weapon";
         minon3.weapons[0].Rate = 10f;
@@ -390,7 +397,8 @@ public class MoreIq : ModUpgrade<MaxLevelIdot>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().range += 10;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.range += 10;
         towerModel.range += 10;
     }
 }
@@ -405,7 +413,8 @@ public class EvenMoreIq : ModUpgrade<MaxLevelIdot>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().range += 15;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.range += 15;
         towerModel.range += 15;
         towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel", true));
     }
@@ -444,9 +453,10 @@ public class Hank : ModUpgrade<MaxLevelIdot>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().range += 10;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.range += 10;
         towerModel.range += 10;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
 
         var C2 = Game.instance.model.GetTowerFromId("IceMonkey-420").GetAttackModel().Duplicate();
         C2.range = towerModel.range;
@@ -466,7 +476,8 @@ public class MrMaxIdot : ModUpgrade<MaxLevelIdot>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().range += 30;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.range += 30;
         towerModel.range += 30;
 
         var W2 = Game.instance.model.GetTowerFromId("DartlingGunner-520").GetAttackModel().Duplicate();
@@ -485,6 +496,7 @@ public class D : ModParagonUpgrade<MaxLevelIdot>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
+        var attackModel = towerModel.GetAttackModel();
         var Ability = Game.instance.model.GetTower(TowerType.NinjaMonkey, 0, 5, 0).GetAbilities()[0].Duplicate();
         Ability.maxActivationsPerRound = 9999999;
         Ability.canActivateBetweenRounds = true;
@@ -493,11 +505,11 @@ public class D : ModParagonUpgrade<MaxLevelIdot>
         Ability.icon = GetSpriteReference("D-Icon");
         towerModel.AddBehavior(Ability);
 
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 500;
-        towerModel.GetAttackModel().weapons[0].rate *= .2f;    
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 500;
+        attackModel.weapons[0].rate *= .2f;    
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
 
-        var minon4 = Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModel().Duplicate();
+        var minon4 = Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModels()[1].Duplicate();
         minon4.range = towerModel.range;
         minon4.name = "Minon3_Weapon";
         minon4.weapons[0].Rate = 8;

@@ -34,11 +34,12 @@ public class CamsNinjaMonkey : ModTower<CamsPack.CamsTowers>
 
     public override void ModifyBaseTowerModel(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].projectile = Game.instance.model.GetTower(TowerType.NinjaMonkey).GetAttackModel().weapons[0].projectile.Duplicate();
-        towerModel.GetAttackModel().range = 40;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].projectile = Game.instance.model.GetTower(TowerType.NinjaMonkey).GetAttackModel().weapons[0].projectile.Duplicate();
+        attackModel.range = 40;
         towerModel.range = 40;
-        towerModel.GetAttackModel().weapons[0].projectile.pierce = 2;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 2;
+        attackModel.weapons[0].projectile.pierce = 2;
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 2;
     }
     public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
     {
@@ -73,11 +74,11 @@ public class CamsNinjaMonkey : ModTower<CamsPack.CamsTowers>
 
             public override void ApplyUpgrade(TowerModel towerModel)
             {
+                var attackModel = towerModel.GetAttackModel();
                 var Knockback = Game.instance.model.GetTowerFromId("NinjaMonkey-010").GetWeapon().projectile.GetBehavior<WindModel>().Duplicate<WindModel>();
                 Knockback.chance = 0.5f;
                 Knockback.distanceMin = 25;
                 Knockback.distanceMax = 50;
-                var attackModel = towerModel.GetAttackModel();
                 attackModel.weapons[0].projectile.AddBehavior(Knockback);
             }
 
@@ -96,8 +97,9 @@ public class CamsNinjaMonkey : ModTower<CamsPack.CamsTowers>
 
                 public override void ApplyUpgrade(TowerModel towerModel)
                 {
-                    towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
-                    towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 3;
+                    var attackModel = towerModel.GetAttackModel();
+                    attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
+                    attackModel.weapons[0].projectile.GetDamageModel().damage = 3;
                 }
             }
 
@@ -116,8 +118,8 @@ public class CamsNinjaMonkey : ModTower<CamsPack.CamsTowers>
 
                 public override void ApplyUpgrade(TowerModel towerModel)
                 {
-                    towerModel.GetAttackModel().weapons[0].rate = .4f;
-
+                    var attackModel = towerModel.GetAttackModel();
+                    attackModel.weapons[0].rate = .4f;
                     var Bomb = Game.instance.model.GetTowerFromId("BombShooter-203").GetAttackModel().Duplicate();
                     Bomb.range = towerModel.range;
                     Bomb.name = "Bomb_Weapon";
@@ -139,9 +141,10 @@ public class CamsNinjaMonkey : ModTower<CamsPack.CamsTowers>
 
                 public override void ApplyUpgrade(TowerModel towerModel)
                 {
-                    towerModel.GetAttackModel().weapons[0].rate = 0.275f;
-                    towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 7;
-                    towerModel.GetAttackModel().weapons[0].projectile.pierce = 7;
+                    var attackModel = towerModel.GetAttackModel();
+                    attackModel.weapons[0].rate = 0.275f;
+                    attackModel.weapons[0].projectile.GetDamageModel().damage = 7;
+                    attackModel.weapons[0].projectile.pierce = 7;
                     towerModel.GetWeapon().projectile.AddBehavior(new DamageModifierForTagModel("DamageModifierForTagModel", "Moabs", 1, 10, false, true));
                 }
 
@@ -160,11 +163,12 @@ public class CamsNinjaMonkey : ModTower<CamsPack.CamsTowers>
 
                     public override void ApplyUpgrade(TowerModel towerModel)
                     {
+                        var attackModel = towerModel.GetAttackModel();
                         var MAD = Game.instance.model.GetTowerFromId("DartlingGunner-250").GetAttackModel().Duplicate();
                         MAD.range = towerModel.range;
                         MAD.name = "MAD_Weapon";
                         towerModel.AddBehavior(MAD);
-                        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 550;
+                        attackModel.weapons[0].projectile.GetDamageModel().damage = 550;
                         towerModel.GetWeapon().projectile.AddBehavior(new DamageModifierForTagModel("DamageModifierForTagModel", "Moabs", 1, 553, false, true));
 
                         var Ability = Game.instance.model.GetTower(TowerType.DartlingGunner, 2, 5, 0).GetAbilities()[0].Duplicate();

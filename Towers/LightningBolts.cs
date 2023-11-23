@@ -36,15 +36,15 @@ public class LightningBolts : ModTower<CamsPack.CamsTowers>
 
     public override void ModifyBaseTowerModel(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].projectile = Game.instance.model.GetTower(TowerType.Druid, 2, 0, 0).GetAttackModel().weapons[0].projectile.Duplicate();
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
-        towerModel.GetAttackModel().weapons[0].rate *= .3f;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 5;
-        towerModel.GetAttackModel().range = 50;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].projectile = Game.instance.model.GetTower(TowerType.Druid, 2, 0, 0).GetAttackModel().weapons[1].projectile.Duplicate();
+        attackModel.weapons[0].rate *= .5f;
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 5;
+        attackModel.range = 50;
         towerModel.range = 50;
         towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel", true));
         towerModel.towerSelectionMenuThemeId = "Camo";
-        towerModel.GetAttackModel().weapons[0].projectile.pierce = 35;
+        attackModel.weapons[0].projectile.pierce = 35;
     }
     public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
     {

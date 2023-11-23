@@ -55,7 +55,7 @@ public class DarkMonkey : ModTower<CamsPack.JokeTowers>
     {
         var attackModel = towerModel.GetAttackModel();
         attackModel.weapons[0].projectile = Game.instance.model.GetTower(TowerType.DartMonkey).GetAttackModel().weapons[0].projectile.Duplicate();
-        towerModel.GetAttackModel().range = 40;
+        attackModel.range = 40;
         towerModel.range = 40;
         attackModel.weapons[0].projectile.pierce = 30;
         attackModel.weapons[0].projectile.GetDamageModel().damage = 4;
@@ -327,18 +327,19 @@ public class FanClub : ModUpgrade<DarkMonkey>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().range += 45;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.range += 45;
         towerModel.range += 45;
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 5;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage += 2;
-        towerModel.GetAttackModel().weapons[0].rate = .2f;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
+        attackModel.weapons[0].projectile.pierce += 5;
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 2;
+        attackModel.weapons[0].rate = .2f;
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
 
         var Knockback = Game.instance.model.GetTowerFromId("NinjaMonkey-010").GetWeapon().projectile.GetBehavior<WindModel>().Duplicate<WindModel>();
         Knockback.chance = 0.7f;
         Knockback.distanceMin = 250;
         Knockback.distanceMax = 320;
-        var attackModel = towerModel.GetAttackModel();
+        
         attackModel.weapons[0].projectile.AddBehavior(Knockback);
     }
 
@@ -359,7 +360,8 @@ public class LongDarts : ModUpgrade<DarkMonkey>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().range += 15;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.range += 15;
         towerModel.range += 15;
     }
 
@@ -380,7 +382,8 @@ public class EnhancedEyes : ModUpgrade<DarkMonkey>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().range += 10;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.range += 10;
         towerModel.range += 10;
         towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel", true));
         towerModel.towerSelectionMenuThemeId = "Camo";
@@ -403,11 +406,13 @@ public class Cross : ModUpgrade<DarkMonkey>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().range += 10;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.range += 10;
         towerModel.range += 10;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage += 2;
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 2;
         var Fire = Game.instance.model.GetTower(TowerType.MortarMonkey, 0, 0, 2).GetAttackModel().weapons[0].projectile.GetBehavior<CreateProjectileOnExhaustFractionModel>().projectile.GetBehavior<AddBehaviorToBloonModel>();
-        towerModel.GetAttackModel().weapons[0].projectile.AddBehavior(Fire);
+        attackModel.weapons[0].projectile.AddBehavior(Fire);
+        attackModel.weapons[0].projectile.collisionPasses = new[] { -1, 0 };
     }
 
 }
@@ -427,8 +432,9 @@ public class SharpShots : ModUpgrade<DarkMonkey>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 75;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage += 3;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].projectile.pierce += 75;
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 3;
     }
 
 }
@@ -448,9 +454,10 @@ public class Sn00ferMaster : ModUpgrade<DarkMonkey>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 99999;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage += 9;
-        towerModel.GetAttackModel().range += 9999999999;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].projectile.pierce += 99999;
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 9;
+        attackModel.range += 9999999999;
         towerModel.range += 9999999999;
 
         var SSS = Game.instance.model.GetTowerFromId("SniperMonkey-502").GetAttackModel().Duplicate();
@@ -470,6 +477,7 @@ public class ApexMemerMaster : ModParagonUpgrade<DarkMonkey>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
+        var attackModel = towerModel.GetAttackModel();
         var Ability = Game.instance.model.GetTower(TowerType.DartMonkey, 0, 5, 0).GetAbilities()[0].Duplicate();
         Ability.maxActivationsPerRound = 9999999;
         Ability.canActivateBetweenRounds = true;
@@ -478,10 +486,10 @@ public class ApexMemerMaster : ModParagonUpgrade<DarkMonkey>
         Ability.icon = GetSpriteReference("ApexMemerMaster-Icon");
         towerModel.AddBehavior(Ability);
 
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage += 300;
-        towerModel.GetAttackModel().weapons[0].rate *= .1f;
-        towerModel.GetAttackModel().weapons[0].projectile.pierce = 9999999999999999999;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 300;
+        attackModel.weapons[0].rate *= .1f;
+        attackModel.weapons[0].projectile.pierce = 9999999999999999999;
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
 
         var SSPS = Game.instance.model.GetTowerFromId("DartMonkey-Paragon").GetAttackModel().Duplicate();
         SSPS.range = towerModel.range;

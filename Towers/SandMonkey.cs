@@ -170,12 +170,11 @@ public class SandMonkey : ModTower<CamsPack.CamsTowers>
                 }
             }
             var attackModel = towerModel.GetAttackModel();
-            var newWeapon = Game.instance.model.GetTowerFromId("GlueGunner-302").GetAttackModel().weapons[0].Duplicate();
-            newWeapon.rate *= 3.5f;
-            newWeapon.projectile.pierce += 2;
-            newWeapon.emission = new ArcEmissionModel("ArcEmissionModel_", 5, 0.0f, 360.0f, null, false, false);
-          //  newWeapon.projectile.ApplyDisplay<fartDisplay>();
-            attackModel.AddWeapon(newWeapon);
+            var SandBlast = Game.instance.model.GetTowerFromId("GlueGunner-302").GetAttackModel().weapons[0].Duplicate();
+            SandBlast.rate *= 3.5f;
+            SandBlast.projectile.pierce += 2;
+            SandBlast.emission = new ArcEmissionModel("ArcEmissionModel_", 5, 0.0f, 360.0f, null, false, false);
+            attackModel.AddWeapon(SandBlast);
         }
     }
 

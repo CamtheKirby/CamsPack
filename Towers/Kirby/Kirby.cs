@@ -81,9 +81,10 @@ public class Kirby : ModTower<CamsPack.KirbyTowers>
 
     public override void ModifyBaseTowerModel(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].projectile = Game.instance.model.GetTower(TowerType.MonkeySub).GetAttackModel().weapons[0].projectile.Duplicate();
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
-        towerModel.GetAttackModel().weapons[0].projectile.ApplyDisplay<NothingDisplay>();
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].projectile = Game.instance.model.GetTower(TowerType.MonkeySub).GetAttackModel().weapons[0].projectile.Duplicate();
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
+        attackModel.weapons[0].projectile.ApplyDisplay<NothingDisplay>();
     }
 
     public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
@@ -155,7 +156,8 @@ public class FastPunching : ModUpgrade<Kirby>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].rate *= .7f;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].rate *= .7f;
     }
 }
 
@@ -174,7 +176,8 @@ public class FasterPunching : ModUpgrade<Kirby>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].rate *= .5f;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].rate *= .5f;
     }
 }
 public class StrongPunching : ModUpgrade<Kirby>
@@ -192,9 +195,10 @@ public class StrongPunching : ModUpgrade<Kirby>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].projectile.ApplyDisplay<PunchDisplay>();
-        towerModel.GetAttackModel().weapons[0].rate *= .4f;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 2f;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].projectile.ApplyDisplay<PunchDisplay>();
+        attackModel.weapons[0].rate *= .4f;
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 2f;
     }
 }
 
@@ -213,9 +217,10 @@ public class FightingSenior : ModUpgrade<Kirby>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].rate *= .3f;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 4f;
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 4;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].rate *= .3f;
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 4f;
+        attackModel.weapons[0].projectile.pierce += 4;
     }
 }
 
@@ -234,9 +239,10 @@ public class FightingMaster : ModUpgrade<Kirby>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].rate *= .2f;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 6f;
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 10;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].rate *= .2f;
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 6f;
+        attackModel.weapons[0].projectile.pierce += 10;
     }
 }
 
@@ -255,7 +261,8 @@ public class Reach : ModUpgrade<Kirby>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().range *= 1.0f;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.range *= 1.0f;
         towerModel.range *= 1.0f;
     }
 }
@@ -275,7 +282,8 @@ public class MoreReach : ModUpgrade<Kirby>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().range *= 2.2f;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.range *= 2.2f;
         towerModel.range *= 2.2f;
         towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel", true));
         towerModel.towerSelectionMenuThemeId = "Camo";
@@ -297,16 +305,17 @@ public class SingForMoney : ModUpgrade<Kirby>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
+        var attackModel = towerModel.GetAttackModel();
         var Money = Game.instance.model.GetTowerFromId("BananaFarm").GetAttackModel().Duplicate();
         Money.name = "BananaFarm_";
         Money.weapons[0].projectile.GetBehavior<CashModel>().maximum = 35;
         Money.weapons[0].projectile.GetBehavior<CashModel>().minimum = 30;
         towerModel.AddBehavior(Money);
-        towerModel.GetAttackModel().range += 1f;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 2;
+        attackModel.range += 1f;
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 2;
         towerModel.range += 1;
-        towerModel.GetAttackModel().weapons[0].projectile.ApplyDisplay<NoteDisplay>();
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 5;
+        attackModel.weapons[0].projectile.ApplyDisplay<NoteDisplay>();
+        attackModel.weapons[0].projectile.pierce += 5;
     }
 }
 public class SingingClub : ModUpgrade<Kirby>
@@ -316,7 +325,7 @@ public class SingingClub : ModUpgrade<Kirby>
     public override string Portrait => "LuigiIcon";
     public override int Path => MIDDLE;
     public override int Tier => 4;
-    public override int Cost => 2975;
+    public override int Cost => 7975;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -324,6 +333,7 @@ public class SingingClub : ModUpgrade<Kirby>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
+        var attackModel = towerModel.GetAttackModel();
         var Wusic = Game.instance.model.GetTowerFromId("TackShooter-203").GetAttackModel().Duplicate();
         Wusic.range = towerModel.range;
         Wusic.name = "Wusic_Weapon";
@@ -337,7 +347,7 @@ public class SingingClub : ModUpgrade<Kirby>
         Ability.resetCooldownOnTierUpgrade = true;
         Ability.cooldown = 37;
         Ability.icon = GetSpriteReference("KirbyPath4Icon_Icon");
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 5;
+        attackModel.weapons[0].projectile.pierce += 5;
         towerModel.AddBehavior(Ability);
 
         var buffM1 = new RateSupportModel("RateSupport1", 0.66f, true, "Kirby:Rate", false, 1, null, null, null);
@@ -353,7 +363,7 @@ public class SCREAM : ModUpgrade<Kirby>
     public override string Portrait => "LuigiIcon";
     public override int Path => MIDDLE;
     public override int Tier => 5;
-    public override int Cost => 38412;
+    public override int Cost => 49550;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -361,10 +371,11 @@ public class SCREAM : ModUpgrade<Kirby>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].rate = .5f;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 75;
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 100;
-        towerModel.GetAttackModel().range += 3f;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].rate = .5f;
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 75;
+        attackModel.weapons[0].projectile.pierce += 100;
+        attackModel.range += 3;
         towerModel.range += 3;
 
         var Ability = Game.instance.model.GetTowerFromId("Psi 10").GetAbilities()[1].Duplicate();
@@ -391,13 +402,14 @@ public class FireAbility : ModUpgrade<Kirby>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
+        var attackModel = towerModel.GetAttackModel();
         var Fire = Game.instance.model.GetTower(TowerType.MortarMonkey, 0, 0, 2).GetAttackModel().weapons[0].projectile.GetBehavior<CreateProjectileOnExhaustFractionModel>().projectile.GetBehavior<AddBehaviorToBloonModel>();
-        towerModel.GetAttackModel().weapons[0].projectile.AddBehavior(Fire);
-        towerModel.GetAttackModel().weapons[0].projectile.collisionPasses = new[] { -1, 0 };
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 2;
-        towerModel.GetAttackModel().range += 1;
+        attackModel.weapons[0].projectile.AddBehavior(Fire);
+        attackModel.weapons[0].projectile.collisionPasses = new[] { -1, 0 };
+        attackModel.weapons[0].projectile.pierce += 2;
+        attackModel.range += 1;
         towerModel.range += 1;
-        towerModel.GetAttackModel().weapons[0].projectile.ApplyDisplay<FireDisplay>();
+        attackModel.weapons[0].projectile.ApplyDisplay<FireDisplay>();
     }
 
 }
@@ -417,10 +429,11 @@ public class BombAbility : ModUpgrade<Kirby>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
+        var attackModel = towerModel.GetAttackModel();
         var projectile = Game.instance.model.GetTower(TowerType.BombShooter, 4, 0, 0).GetAttackModel().weapons[0].projectile.Duplicate();
         projectile.GetBehavior<CreateProjectileOnContactModel>().projectile.GetDamageModel().damage *= 15;
         projectile.display = new() { guidRef = "" };
-        var weapon = towerModel.GetAttackModel().Duplicate();
+        var weapon = attackModel.Duplicate();
         weapon.weapons[0].projectile = projectile;
         weapon.weapons[0].Rate = 8;
         weapon.name = "BombA";
@@ -451,8 +464,8 @@ public class TornadoAbility : ModUpgrade<Kirby>
         Tornado.range = towerModel.range;
         Tornado.name = "Tornado_Weapon";
         towerModel.AddBehavior(Tornado);
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 2;
-        towerModel.GetAttackModel().range += 1;
+        attackModel.weapons[0].projectile.pierce += 2;
+        attackModel.range += 1;
         towerModel.range += 1;
     }
 
@@ -506,10 +519,10 @@ public class TheUltraSword : ModUpgrade<Kirby>
         UltraSword.weapons[0].projectile.GetDamageModel().damage = 20000;
         towerModel.AddBehavior(UltraSword);
         towerModel.GetWeapon().projectile.AddBehavior(new DamageModifierForTagModel("DamageModifierForTagModel", "Moabs", 1, 485, false, true));
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 1000;
-        towerModel.GetAttackModel().range += 50;
+        attackModel.weapons[0].projectile.pierce += 1000;
+        attackModel.range += 50;
         towerModel.range += 50;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 100.9f;
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 100.9f;
     }
 
 }
@@ -522,6 +535,7 @@ public class StarRod : ModParagonUpgrade<Kirby>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
+        var attackModel = towerModel.GetAttackModel();
         var Ability = Game.instance.model.GetTowerFromId("Psi 20").GetAbilities()[1].Duplicate();
         Ability.maxActivationsPerRound = 9999999;
         Ability.canActivateBetweenRounds = true;
@@ -530,10 +544,10 @@ public class StarRod : ModParagonUpgrade<Kirby>
         Ability.icon = GetSpriteReference("KirbyPath4Icon_Icon");
         towerModel.AddBehavior(Ability);
 
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 69599299;
-        towerModel.GetAttackModel().weapons[0].rate *= .1f;
-        towerModel.GetAttackModel().weapons[0].projectile.pierce = 9999999999999999999;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 69599299;
+        attackModel.weapons[0].rate *= .1f;
+        attackModel.weapons[0].projectile.pierce = 9999999999999999999;
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
        
   
     }

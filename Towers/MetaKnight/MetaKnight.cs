@@ -61,12 +61,13 @@ public class MetaKnight : ModTower<CamsPack.KirbyTowers>
     public override ParagonMode ParagonMode => ParagonMode.Base555;
     public override void ModifyBaseTowerModel(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].projectile = Game.instance.model.GetTower(TowerType.Sauda).GetAttackModel().weapons[0].projectile.Duplicate();
-        towerModel.GetAttackModel().weapons[0].rate *= .8f;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 3;
-        towerModel.GetAttackModel().range = Game.instance.model.GetTower(TowerType.Sauda).GetAttackModel().range;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].projectile = Game.instance.model.GetTower(TowerType.Sauda).GetAttackModel().weapons[0].projectile.Duplicate();
+        attackModel.weapons[0].rate *= .8f;
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 3;
+        attackModel.range = Game.instance.model.GetTower(TowerType.Sauda).GetAttackModel().range;
         towerModel.range = Game.instance.model.GetTower(TowerType.Sauda).range;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
     }
     public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
     {
@@ -121,7 +122,8 @@ public class FastSlashing : ModUpgrade<MetaKnight>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].rate *= .6f;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].rate *= .6f;
     }
 }
 
@@ -140,8 +142,9 @@ public class StrongerSlashing : ModUpgrade<MetaKnight>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].rate *= .4f;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 6;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].rate *= .4f;
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 6;
     }
 }
 
@@ -160,7 +163,8 @@ public class WingBashing : ModUpgrade<MetaKnight>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().range += 3;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.range += 3;
         towerModel.range += 3;
        var Wings = Game.instance.model.GetTowerFromId("SentryCold").GetAttackModel().Duplicate();
         Wings.range = towerModel.range;
@@ -186,9 +190,10 @@ public class SharpenSword : ModUpgrade<MetaKnight>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].rate *= .2f;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 10;
-        towerModel.GetAttackModel().range += 3;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].rate *= .2f;
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 10;
+        attackModel.range += 3;
         towerModel.range += 3;
     }
 }
@@ -208,9 +213,10 @@ public class GalactaPower : ModUpgrade<MetaKnight>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].rate *= .1f;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 50;
-        towerModel.GetAttackModel().range += 9;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].rate *= .1f;
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 50;
+        attackModel.range += 9;
         towerModel.range += 9;
     }
 }
@@ -230,7 +236,8 @@ public class LongerSword : ModUpgrade<MetaKnight>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().range += 15;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.range += 15;
         towerModel.range += 15;
     }
 }
@@ -250,9 +257,10 @@ public class EvenLongerSword : ModUpgrade<MetaKnight>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().range += 20;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.range += 20;
         towerModel.range += 20;
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 7;
+        attackModel.weapons[0].projectile.pierce += 7;
     }
 }
 
@@ -271,9 +279,10 @@ public class SyrupSword : ModUpgrade<MetaKnight>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().range += 8;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.range += 8;
         towerModel.range += 8;
-     var Slower = Game.instance.model.GetTowerFromId("GlueGunner-023").GetAttackModel().Duplicate();
+        var Slower = Game.instance.model.GetTowerFromId("GlueGunner-023").GetAttackModel().Duplicate();
         Slower.range = towerModel.range;
         Slower.name = "Slower_Weapon";
         towerModel.AddBehavior(Slower);
@@ -296,13 +305,14 @@ public class SitckyBloonuation : ModUpgrade<MetaKnight>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].rate = .6f;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].rate = .6f;
 
         var Knockback = Game.instance.model.GetTowerFromId("NinjaMonkey-010").GetWeapon().projectile.GetBehavior<WindModel>().Duplicate<WindModel>();
         Knockback.chance = 0.5f;
         Knockback.distanceMin = 25;
         Knockback.distanceMax = 50;
-        var attackModel = towerModel.GetAttackModel();
+        
         attackModel.weapons[0].projectile.AddBehavior(Knockback);
     }
 }
@@ -322,10 +332,11 @@ public class AButterfly : ModUpgrade<MetaKnight>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].rate = .3f;
-        towerModel.GetAttackModel().range += 6;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].rate = .3f;
+        attackModel.range += 6;
         towerModel.range += 6;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 65;
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 65;
 
         var Ability = Game.instance.model.GetTower(TowerType.BombShooter, 0, 5, 0).GetAbilities()[0].Duplicate();
         Ability.maxActivationsPerRound = 9999999;
@@ -358,7 +369,8 @@ public class SharperBlade : ModUpgrade<MetaKnight>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 5;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].projectile.pierce += 5;
     }
 }
 
@@ -377,7 +389,8 @@ public class SuperSharpedBlade : ModUpgrade<MetaKnight>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 23;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].projectile.pierce += 23;
     }
 }
 
@@ -418,11 +431,12 @@ public class DarkSword : ModUpgrade<MetaKnight>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].rate = .4f;
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 50;
-        towerModel.GetAttackModel().range += 15;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].rate = .4f;
+        attackModel.weapons[0].projectile.pierce += 50;
+        attackModel.range += 15;
         towerModel.range += 15;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage =+ 30;
+        attackModel.weapons[0].projectile.GetDamageModel().damage =+ 30;
     }
 }
 
@@ -441,11 +455,12 @@ public class OverTakingDarkness : ModUpgrade<MetaKnight>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].rate = .2f;
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 90;
-        towerModel.GetAttackModel().range += 5;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].rate = .2f;
+        attackModel.weapons[0].projectile.pierce += 90;
+        attackModel.range += 5;
         towerModel.range += 5;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage =+ 50;
+        attackModel.weapons[0].projectile.GetDamageModel().damage =+ 50;
 
         var broThisIsTheMostEdgynessUpgradeever = Game.instance.model.GetTowerFromId("SentryParagon").GetAttackModel().Duplicate();
         broThisIsTheMostEdgynessUpgradeever.range = towerModel.range + 12;
@@ -465,8 +480,9 @@ public class KnightMerge : ModParagonUpgrade<MetaKnight>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].rate *= .1f;
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 490;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].rate *= .1f;
+        attackModel.weapons[0].projectile.pierce += 490;
         var Ability = Game.instance.model.GetTower(TowerType.MortarMonkey, 0, 5, 0).GetAbilities()[0].Duplicate();
         Ability.maxActivationsPerRound = 9999999;
         Ability.canActivateBetweenRounds = true;

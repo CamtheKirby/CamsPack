@@ -115,11 +115,12 @@ public class FSB : ModTower
 
     public override void ModifyBaseTowerModel(TowerModel towerModel)
     {
+        var attackModel = towerModel.GetAttackModel();
         towerModel.isSubTower = true;
         towerModel.AddBehavior(new TowerExpireModel("ExpireModel", 20f, 1, false, false));
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 10;
-        towerModel.GetAttackModel().weapons[0].rate = 2;
-        towerModel.GetAttackModel().weapons[0].projectile.ApplyDisplay<LaserDisplay>();
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 10;
+        attackModel.weapons[0].rate = 2;
+        attackModel.weapons[0].projectile.ApplyDisplay<LaserDisplay>();
     }
     public override string Get2DTexture(int[] tiers)
     {
@@ -147,11 +148,12 @@ public class FSBG : ModTower
 
     public override void ModifyBaseTowerModel(TowerModel towerModel)
     {
+        var attackModel = towerModel.GetAttackModel();
         towerModel.isSubTower = true;
         towerModel.AddBehavior(new TowerExpireModel("ExpireModel", 40f, 1, false, false));
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 45;
-        towerModel.GetAttackModel().weapons[0].rate = 0.7f;
-        towerModel.GetAttackModel().weapons[0].projectile.ApplyDisplay<Laser2Display>();
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 45;
+        attackModel.weapons[0].rate = 0.7f;
+        attackModel.weapons[0].projectile.ApplyDisplay<Laser2Display>();
     }
     public override string Get2DTexture(int[] tiers)
     {
@@ -165,7 +167,7 @@ public class Firey : ModTower<CamsPack.BfdiTowers>
 {
    // public override TowerSet TowerSet => TowerSet.Magic;
     public override string BaseTower => TowerType.DartMonkey;
-    public override int Cost => 350;
+    public override int Cost => 600;
     public override int TopPathUpgrades => 5;
     public override int MiddlePathUpgrades => 5;
     public override int BottomPathUpgrades => 5;
@@ -180,12 +182,13 @@ public class Firey : ModTower<CamsPack.BfdiTowers>
     {
         var attackModel = towerModel.GetAttackModel();
         var projectile = attackModel.weapons[0].projectile;
-        towerModel.GetAttackModel().weapons[0].projectile = Game.instance.model.GetTower(TowerType.WizardMonkey, 0, 1, 0).GetAttackModel().weapons[0].projectile.Duplicate();
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage = 2;
+        attackModel.weapons[0].projectile = Game.instance.model.GetTower(TowerType.WizardMonkey, 0, 1, 0).GetAttackModel().weapons[0].projectile.Duplicate();
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 2;
         projectile.GetDamageModel().immuneBloonProperties = BloonProperties.Purple;
-        towerModel.GetAttackModel().weapons[0].projectile.ApplyDisplay<FireFDisplay>();
+        attackModel.weapons[0].projectile.ApplyDisplay<FireFDisplay>();
         var Fire = Game.instance.model.GetTower(TowerType.MortarMonkey, 0, 0, 2).GetAttackModel().weapons[0].projectile.GetBehavior<CreateProjectileOnExhaustFractionModel>().projectile.GetBehavior<AddBehaviorToBloonModel>();
-        towerModel.GetAttackModel().weapons[0].projectile.AddBehavior(Fire);
+        attackModel.weapons[0].projectile.AddBehavior(Fire);
+        attackModel.weapons[0].projectile.collisionPasses = new[] { -1, 0 };
     }
     public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
     {
@@ -216,8 +219,9 @@ public class BetterFire : ModUpgrade<Firey>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].rate -= 0.2f;
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 3;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].rate -= 0.2f;
+        attackModel.weapons[0].projectile.pierce += 3;
     }
 }
 
@@ -226,14 +230,15 @@ public class BiggerFlames : ModUpgrade<Firey>
     public override string Portrait => "LuigiIcon";
     public override int Path => TOP;
     public override int Tier => 2;
-    public override int Cost => 300;
+    public override int Cost => 800;
     public override string Description => "His Fire gets bigger, +1 damage, and gets +2 pierce";
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage += 1;
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 2;
-        towerModel.GetAttackModel().weapons[0].projectile.scale *= 2;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 1;
+        attackModel.weapons[0].projectile.pierce += 2;
+        attackModel.weapons[0].projectile.scale *= 2;
     }
 }
 public class HomingFlames : ModUpgrade<Firey>
@@ -248,8 +253,8 @@ public class HomingFlames : ModUpgrade<Firey>
     {
         var attackModel = towerModel.GetAttackModel();
         var projectile = attackModel.weapons[0].projectile;
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 4;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage += 2;
+        attackModel.weapons[0].projectile.pierce += 4;
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 2;
         projectile.AddBehavior(new TrackTargetModel("Testname", 9999999, true, false, 144, false, 300, false, true));
     }
 }
@@ -282,10 +287,11 @@ public class ForestFire : ModUpgrade<Firey>
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
-        towerModel.GetAttackModel().weapons[0].projectile.scale *= 2;
-        towerModel.GetAttackModel().weapons[0].projectile.pierce += 10;
-        towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage += 15;
-        towerModel.GetAttackModel().weapons[0].rate -= 0.4f;
+        var attackModel = towerModel.GetAttackModel();
+        attackModel.weapons[0].projectile.scale *= 2;
+        attackModel.weapons[0].projectile.pierce += 10;
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 15;
+        attackModel.weapons[0].rate -= 0.4f;
         foreach (var attacks in towerModel.GetAttackModels())
         {
             if (attacks.name.Contains("Firey_Weapon"))
@@ -306,9 +312,10 @@ public class ForestFire : ModUpgrade<Firey>
 
         public override void ApplyUpgrade(TowerModel towerModel)
         {
-            towerModel.GetAttackModel().range += 15;
+            var attackModel = towerModel.GetAttackModel();
+            attackModel.range += 15;
             towerModel.range += 15;
-            towerModel.GetAttackModel().weapons[0].projectile.pierce += 1;
+            attackModel.weapons[0].projectile.pierce += 1;
         }
     }
 
@@ -329,9 +336,9 @@ public class ForestFire : ModUpgrade<Firey>
             Knockback.name = "Firey2_Weapon";
             var attackModel = towerModel.GetAttackModel();
             attackModel.weapons[0].projectile.AddBehavior(Knockback);
-            towerModel.GetAttackModel().range += 10;
+            attackModel.range += 10;
             towerModel.range += 10;
-            towerModel.GetAttackModel().weapons[0].projectile.pierce += 1;
+            attackModel.weapons[0].projectile.pierce += 1;
             towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel", true));
 
         }
@@ -431,10 +438,9 @@ public class ForestFire : ModUpgrade<Firey>
 
             public override void ApplyUpgrade(TowerModel towerModel)
             {
-
-                towerModel.GetAttackModel().range += 20;
+                var attackModel = towerModel.GetAttackModel();
+                attackModel.range += 20;
                 towerModel.range += 20;
-
             }
         }
 
@@ -448,8 +454,8 @@ public class ForestFire : ModUpgrade<Firey>
 
             public override void ApplyUpgrade(TowerModel towerModel)
             {
-
-                towerModel.GetAttackModel().range += 20;
+                var attackModel = towerModel.GetAttackModel();
+                attackModel.range += 20;
                 towerModel.range += 20;
                 towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel", true));
             }
@@ -483,10 +489,11 @@ public class ForestFire : ModUpgrade<Firey>
 
             public override void ApplyUpgrade(TowerModel towerModel)
             {
-                towerModel.GetAttackModel().weapons[0].projectile.pierce *= 5;
-                towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage *= 5;
-                towerModel.GetAttackModel().weapons[0].rate -= 0.4f;
-                towerModel.GetAttackModel().weapons[0].projectile.ApplyDisplay<FireFMDisplay>();
+                var attackModel = towerModel.GetAttackModel();
+                attackModel.weapons[0].projectile.pierce *= 5;
+                attackModel.weapons[0].projectile.GetDamageModel().damage *= 5;
+                attackModel.weapons[0].rate -= 0.4f;
+                attackModel.weapons[0].projectile.ApplyDisplay<FireFMDisplay>();
                 foreach (var attacks in towerModel.GetAttackModels())
                 {
                     if (attacks.name.Contains("FJ_Weapon"))
@@ -510,10 +517,11 @@ public class ForestFire : ModUpgrade<Firey>
 
             public override void ApplyUpgrade(TowerModel towerModel)
             {
-                towerModel.GetAttackModel().weapons[0].projectile.pierce *= 10;
-                towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().damage *= 10;
-                towerModel.GetAttackModel().weapons[0].rate -= 0.4f;
-                towerModel.GetAttackModel().weapons[0].projectile.ApplyDisplay<FireFGDisplay>();
+                var attackModel = towerModel.GetAttackModel();
+                attackModel.weapons[0].projectile.pierce *= 10;
+                attackModel.weapons[0].projectile.GetDamageModel().damage *= 10;
+                attackModel.weapons[0].rate -= 0.4f;
+                attackModel.weapons[0].projectile.ApplyDisplay<FireFGDisplay>();
                 foreach (var attacks in towerModel.GetAttackModels())
                 {
                     if (attacks.name.Contains("FJ_Weapon"))
@@ -538,7 +546,7 @@ public class ForestFire : ModUpgrade<Firey>
                 var attackModel = towerModel.GetAttackModel();
                 var projectile = attackModel.weapons[0].projectile;
                 towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel", true));
-                towerModel.GetAttackModel().weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0; 
+                attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0; 
                 projectile.GetDamageModel().immuneBloonProperties = BloonProperties.None;
 
                 var Ability = Game.instance.model.GetTower(TowerType.BombShooter, 0, 4, 0).GetAbilities()[0].Duplicate();
