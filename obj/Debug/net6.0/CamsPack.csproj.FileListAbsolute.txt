@@ -6,7 +6,7 @@ C:\Users\among\OneDrive\Documents\BTD6 Mod Sources\CamsPack\obj\Debug\net6.0\Cam
 C:\Users\among\OneDrive\Documents\BTD6 Mod Sources\CamsPack\obj\Debug\net6.0\CamsPack.AssemblyInfoInputs.cache
 C:\Users\among\OneDrive\Documents\BTD6 Mod Sources\CamsPack\obj\Debug\net6.0\CamsPack.AssemblyInfo.cs
 C:\Users\among\OneDrive\Documents\BTD6 Mod Sources\CamsPack\obj\Debug\net6.0\CamsPack.csproj.CoreCompileInputs.cache
-C:\Users\among\OneDrive\Documents\BTD6 Mod Sources\CamsPack\obj\Debug\net6.0\CamsPack.csproj.CopyComplete
 C:\Users\among\OneDrive\Documents\BTD6 Mod Sources\CamsPack\obj\Debug\net6.0\CamsPack.dll
 C:\Users\among\OneDrive\Documents\BTD6 Mod Sources\CamsPack\obj\Debug\net6.0\refint\CamsPack.dll
 C:\Users\among\OneDrive\Documents\BTD6 Mod Sources\CamsPack\obj\Debug\net6.0\ref\CamsPack.dll
+C:\Users\among\OneDrive\Documents\BTD6 Mod Sources\CamsPack\obj\Debug\net6.0\CamsPack.csproj.Up2Date

@@ -165,7 +165,7 @@ public class Firey : ModTower<CamsPack.BfdiTowers>
 {
    // public override TowerSet TowerSet => TowerSet.Magic;
     public override string BaseTower => TowerType.DartMonkey;
-    public override int Cost => 600;
+    public override int Cost => 780;
     public override int TopPathUpgrades => 5;
     public override int MiddlePathUpgrades => 5;
     public override int BottomPathUpgrades => 5;

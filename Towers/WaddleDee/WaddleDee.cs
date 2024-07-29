@@ -45,7 +45,7 @@ public class WaddleDee : ModTower<KirbyTowers>
 {
     //public override TowerSet TowerSet => TowerSet.Support;
     public override string BaseTower => TowerType.DartMonkey;
-    public override int Cost => 500;
+    public override int Cost => 785;
     public override int TopPathUpgrades => 5;
     public override int MiddlePathUpgrades => 5;
     public override int BottomPathUpgrades => 0;
@@ -312,7 +312,6 @@ public class DoubleWah : ModUpgrade<WaddleDee>
     public override void ApplyUpgrade(TowerModel towerModel)
     {
         var attackModel = towerModel.GetAttackModel();
-        var projectile = attackModel.weapons[0].projectile;
         attackModel.weapons[0].projectile.ApplyDisplay<UmbrellaDisplay>();
         attackModel.weapons[0].projectile.pierce += 5;
         attackModel.weapons[0].rate *= .4f;
@@ -322,10 +321,10 @@ public class DoubleWah : ModUpgrade<WaddleDee>
 
 
         // ------Bad Old Code--------- \\
-        //   var Wah2 = Game.instance.model.GetTowerFromId("DartMonkey").GetAttackModel().Duplicate();
-        //   Wah2.range = towerModel.range;
-        //  Wah2.name = "Wah2_Weapon";
-        // towerModel.AddBehavior(Wah2);
+        //var Wah2 = Game.instance.model.GetTowerFromId("DartMonkey").GetAttackModel().Duplicate();
+        //Wah2.range = towerModel.range;
+        //Wah2.name = "Wah2_Weapon";
+        //towerModel.AddBehavior(Wah2);
         //Wah2.weapons[0].projectile.ApplyDisplay<UmbrellaDisplay>();
         //Wah2.weapons[0].rate *= .4f;
         //Wah2.weapons[0].projectile.pierce = 6;

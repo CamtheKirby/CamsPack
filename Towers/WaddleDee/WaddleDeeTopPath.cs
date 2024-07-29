@@ -14,7 +14,6 @@ using CamsPack;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using System;
-using BananaGun;
 
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 

@@ -8,6 +8,7 @@ using Il2CppAssets.Scripts.Models.TowerSets;
 using Il2CppAssets.Scripts.Unity;
 using Il2CppAssets.Scripts.Unity.Display;
 using MelonLoader;
+using Il2CppNinjaKiwi.Common.ResourceUtils;
 using System;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using System.Collections.Generic;
@@ -45,7 +46,7 @@ public class DarkMonkey : ModTower<CamsPack.JokeTowers>
     public override int TopPathUpgrades => 5;
     public override int MiddlePathUpgrades => 5;
     public override int BottomPathUpgrades => 5;
-    public override string Description => "(THIS IS A JOKE TOWER) According to all known laws of avaiation, there is no way a lead bloon should be able to fly. Its shell is too heavy to get its fat little body off the ground. The lead bloon, of course, flies anyway, because bloons don't care what monkeys think is impossible. (Cursed Tower Made By u/PawaMV)";
+    public override string Description => "(THIS IS A JOKE TOWER) (Cursed Tower Made By u/PawaMV) According to all known laws of avaiation, there is no way a lead bloon should be able to fly. Its shell is too heavy to get its fat little body off the ground. The lead bloon, of course, flies anyway, because bloons don't care what monkeys think is impossible.";
 
     public override string Icon => "DMIcon";
 

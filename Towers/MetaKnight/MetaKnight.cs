@@ -47,7 +47,7 @@ public class MetaKnight : ModTower<CamsPack.KirbyTowers>
 {
    // public override TowerSet TowerSet => TowerSet.Magic;
     public override string BaseTower => TowerType.NinjaMonkey;
-    public override int Cost => 830;
+    public override int Cost => 965;
     public override int TopPathUpgrades => 5;
     public override int MiddlePathUpgrades => 5;
     public override int BottomPathUpgrades => 5;

@@ -11,6 +11,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine.Video;
+using UnityEngine;
+using Il2CppAssets.Scripts.Models.Effects;
+using Il2Cpp;
+using NAudio.SoundFont;
 [assembly: MelonInfo(typeof(CamsPack.CamsPack), ModHelperData.Name, ModHelperData.Version, ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
@@ -18,9 +23,17 @@ namespace CamsPack;
 
 public class CamsPack : BloonsTD6Mod
 {
+
     public override void OnApplicationStart()
     {
-        ModHelper.Msg<CamsPack>("CamsTowerPack loaded! Why are you reading this?");
+        /*GameObject camera = GameObject.Find("Camera");
+        
+        var videoPlayer = camera.AddComponent<VideoPlayer>();
+        videoPlayer.url = "family guy glock in my rari but they actually sing it";
+        videoPlayer.Play(); */
+        
+        ModHelper.Msg<CamsPack>("CamsPack loaded! Why are you reading this?");
+      
     }
 }
 
@@ -74,7 +87,7 @@ public class YoutubeTowers : ModTowerSet
 
 public class Settings : ModSettings
 {
-    public static readonly ModSettingBool OpTowers = new(true)
+    public static readonly ModSettingBool OpTowers = new(false)
     {
         displayName = "Op Towers",
         description = "If you want OP Towers or not (Shadow Kirby) (RESTART GAME TO APPLY)",
@@ -115,13 +128,13 @@ public class WaddledeeMiddlePath : PathPlusPlus
 
 public class WaddledeeTopPath : PathPlusPlus
 {
-    public override string Tower => ModContent.TowerID<WaddleDee.WaddleDee>(0, 0, 0);
+    public override string Tower => TowerID<WaddleDee.WaddleDee>(0, 0, 0);
     public override int ExtendVanillaPath => 0;
     public override int UpgradeCount => 7;
 }
 
 public class TGForthPath : PathPlusPlus
 {
-    public override string Tower => ModContent.TowerID<TGMonkey.ThanksgivingMonkey>(0, 0, 0);
+    public override string Tower => TowerID<TGMonkey.ThanksgivingMonkey>(0, 0, 0);
     public override int UpgradeCount => 6;
 }
