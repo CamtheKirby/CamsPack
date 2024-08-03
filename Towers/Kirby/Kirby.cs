@@ -1,15 +1,21 @@
+using BananaGun;
 using BTD_Mod_Helper.Api.Display;
 using BTD_Mod_Helper.Api.Towers;
 using BTD_Mod_Helper.Extensions;
+using Il2Cpp;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
+using Il2CppAssets.Scripts.Models.Towers.Filters;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Models.TowerSets;
+using Il2CppAssets.Scripts.Simulation.Bloons.Behaviors;
 using Il2CppAssets.Scripts.Unity;
 using Il2CppAssets.Scripts.Unity.Display;
 using MelonLoader;
 using System.Collections.Generic;
 using System.Linq;
+using static Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.SlowModel;
 
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
@@ -63,15 +69,21 @@ public class KirbyBuffIcon : ModBuffIcon
     public override int MaxStackSize => 1;
 }
 
+public class StarRodBuffIcon : ModBuffIcon
+{
+    protected override int Order => 1;
+    public override string Icon => "StarRodBuffIcon";
+    public override int MaxStackSize => 1;
+}
 public class Kirby : ModTower<CamsPack.KirbyTowers>
 {
    // public override TowerSet TowerSet => TowerSet.Magic;
     public override string BaseTower => TowerType.DartMonkey;
-    public override int Cost => 825;
+    public override int Cost => 385;
     public override int TopPathUpgrades => 5;
     public override int MiddlePathUpgrades => 5;
     public override int BottomPathUpgrades => 5;
-    public override string Description => "Look! It's Kirby!";
+    public override string Description => "It's Kirby! Punches bloons with medium speed";
 
     public override bool Use2DModel => true;
     public override string Icon => "Kiby2Icon";
@@ -82,9 +94,10 @@ public class Kirby : ModTower<CamsPack.KirbyTowers>
     public override void ModifyBaseTowerModel(TowerModel towerModel)
     {
         var attackModel = towerModel.GetAttackModel();
-        attackModel.weapons[0].projectile = Game.instance.model.GetTower(TowerType.MonkeySub).GetAttackModel().weapons[0].projectile.Duplicate();
-        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
+        attackModel.weapons[0].projectile = Game.instance.model.GetTower(TowerType.DartMonkey).GetAttackModel().weapons[0].projectile.Duplicate();
         attackModel.weapons[0].projectile.ApplyDisplay<NothingDisplay>();
+        attackModel.weapons[0].projectile.pierce = 1;
+        attackModel.weapons[0].rate *= .8f;
     }
 
     public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
@@ -187,18 +200,17 @@ public class StrongPunching : ModUpgrade<Kirby>
     public override string Portrait => "LuigiIcon";
     public override int Path => TOP;
     public override int Tier => 3;
-    public override int Cost => 7799;
+    public override int Cost => 600;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
-    public override string Description => "Now Kirby Punching is Faster and Stronger!";
+    public override string Description => "Now Kirby Punching is Stronger!";
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
         var attackModel = towerModel.GetAttackModel();
         attackModel.weapons[0].projectile.ApplyDisplay<PunchDisplay>();
-        attackModel.weapons[0].rate *= .4f;
-        attackModel.weapons[0].projectile.GetDamageModel().damage = 2f;
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 2;
     }
 }
 
@@ -209,7 +221,7 @@ public class FightingSenior : ModUpgrade<Kirby>
     public override string Portrait => "LuigiIcon";
     public override int Path => TOP;
     public override int Tier => 4;
-    public override int Cost => 8169;
+    public override int Cost => 2000;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -218,9 +230,9 @@ public class FightingSenior : ModUpgrade<Kirby>
     public override void ApplyUpgrade(TowerModel towerModel)
     {
         var attackModel = towerModel.GetAttackModel();
-        attackModel.weapons[0].rate *= .3f;
-        attackModel.weapons[0].projectile.GetDamageModel().damage = 4f;
-        attackModel.weapons[0].projectile.pierce += 4;
+        attackModel.weapons[0].rate *= .4f;
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 5;
+        attackModel.weapons[0].projectile.pierce += 10;
     }
 }
 
@@ -231,7 +243,7 @@ public class FightingMaster : ModUpgrade<Kirby>
     public override string Portrait => "LuigiIcon";
     public override int Path => TOP;
     public override int Tier => 5;
-    public override int Cost => 509305;
+    public override int Cost => 31500;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -240,9 +252,11 @@ public class FightingMaster : ModUpgrade<Kirby>
     public override void ApplyUpgrade(TowerModel towerModel)
     {
         var attackModel = towerModel.GetAttackModel();
-        attackModel.weapons[0].rate *= .2f;
-        attackModel.weapons[0].projectile.GetDamageModel().damage = 6f;
-        attackModel.weapons[0].projectile.pierce += 10;
+        var weaponModel = towerModel.GetWeapon();
+
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 35f;
+        attackModel.weapons[0].projectile.pierce += 30;
+        // weaponModel.projectile.AddBehavior(new SlowModel("SlowModel_", 0.0f, .2f, "Stun:Weak", 9999999, "Stun", true, false, null, false, false, false, 0, false));
     }
 }
 
@@ -262,8 +276,8 @@ public class Reach : ModUpgrade<Kirby>
     public override void ApplyUpgrade(TowerModel towerModel)
     {
         var attackModel = towerModel.GetAttackModel();
-        attackModel.range *= 1.0f;
-        towerModel.range *= 1.0f;
+        attackModel.range *= 1.2f;
+        towerModel.range *= 1.2f;
     }
 }
 
@@ -283,9 +297,9 @@ public class MoreReach : ModUpgrade<Kirby>
     public override void ApplyUpgrade(TowerModel towerModel)
     {
         var attackModel = towerModel.GetAttackModel();
-        attackModel.range *= 2.2f;
-        towerModel.range *= 2.2f;
-        towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel", true));
+        attackModel.range *= 1.3f;
+        towerModel.range *= 1.3f;
+        towerModel.GetDescendants<FilterInvisibleModel>().ForEach(model => model.isActive = false);
         towerModel.towerSelectionMenuThemeId = "Camo";
     }
 }
@@ -325,7 +339,7 @@ public class SingingClub : ModUpgrade<Kirby>
     public override string Portrait => "LuigiIcon";
     public override int Path => MIDDLE;
     public override int Tier => 4;
-    public override int Cost => 7975;
+    public override int Cost => 27500;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -350,8 +364,9 @@ public class SingingClub : ModUpgrade<Kirby>
         attackModel.weapons[0].projectile.pierce += 5;
         towerModel.AddBehavior(Ability);
 
-        var buffM1 = new RateSupportModel("RateSupport1", 0.66f, true, "Kirby:Rate", false, 1, null, null, null);
+        var buffM1 = new RateSupportModel("RateSupportModel_", 0.80f, true, "Village:Rate", false, 1, null, null, null);
         buffM1.ApplyBuffIcon<KirbyBuffIcon>();
+        buffM1.name = "buffM1";
         towerModel.AddBehavior(buffM1);
     }
 }
@@ -363,7 +378,7 @@ public class SCREAM : ModUpgrade<Kirby>
     public override string Portrait => "LuigiIcon";
     public override int Path => MIDDLE;
     public override int Tier => 5;
-    public override int Cost => 49550;
+    public override int Cost => 80000;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -378,13 +393,20 @@ public class SCREAM : ModUpgrade<Kirby>
         attackModel.range += 3;
         towerModel.range += 3;
 
-        var Ability = Game.instance.model.GetTowerFromId("Psi 10").GetAbilities()[1].Duplicate();
+        var Ability = Game.instance.model.GetTowerFromId("Psi 16").GetAbilities()[1].Duplicate();
         Ability.maxActivationsPerRound = 9999999;
         Ability.canActivateBetweenRounds = true;
         Ability.resetCooldownOnTierUpgrade = true;
         Ability.cooldown = 25;
         Ability.icon = GetSpriteReference("KirbyPath4Icon_Icon");
         towerModel.AddBehavior(Ability);
+
+        towerModel.RemoveBehavior<RateSupportModel>();
+
+        var buffM2 = new RateSupportModel("RateSupportModel_", 0.60f, true, "Village:Rate", false, 1, null, null, null);
+        buffM2.ApplyBuffIcon<KirbyBuffIcon>();
+        buffM2.name = "buffM2";
+        towerModel.AddBehavior(buffM2);
     }
 }
 public class FireAbility : ModUpgrade<Kirby>
@@ -409,6 +431,7 @@ public class FireAbility : ModUpgrade<Kirby>
         attackModel.weapons[0].projectile.pierce += 2;
         attackModel.range += 1;
         towerModel.range += 1;
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = BloonProperties.Purple;
         attackModel.weapons[0].projectile.ApplyDisplay<FireDisplay>();
     }
 
@@ -421,7 +444,7 @@ public class BombAbility : ModUpgrade<Kirby>
     public override string Portrait => "LuigiIcon";
     public override int Path => BOTTOM;
     public override int Tier => 2;
-    public override int Cost => 1950;
+    public override int Cost => 4550;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -438,7 +461,7 @@ public class BombAbility : ModUpgrade<Kirby>
         weapon.weapons[0].Rate = 8;
         weapon.name = "BombA";
         towerModel.AddBehavior(weapon);
-        towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel", true));
+        towerModel.GetDescendants<FilterInvisibleModel>().ForEach(model => model.isActive = false);
         towerModel.towerSelectionMenuThemeId = "Camo";
     }
 
@@ -503,52 +526,67 @@ public class TheUltraSword : ModUpgrade<Kirby>
     public override string Portrait => "LuigiIcon";
     public override int Path => BOTTOM;
     public override int Tier => 5;
-    public override int Cost => 879305;
+    public override int Cost => 80000;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
-    public override string Description => "Kirby Gets- wait this ability is special......";
+    public override string Description => "Kirby Gets the Ultra Sword Holden by special entities";
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
         var attackModel = towerModel.GetAttackModel();
-        var UltraSword = Game.instance.model.GetTowerFromId("SuperMonkey-302").GetAttackModel().Duplicate();
-        UltraSword.range = towerModel.range;
-        UltraSword.name = "UltraSword_Weapon";
-        UltraSword.weapons[0].projectile.pierce = 9999999999999999999; // inf lol
-        UltraSword.weapons[0].projectile.GetDamageModel().damage = 20000;
-        towerModel.AddBehavior(UltraSword);
-        towerModel.GetWeapon().projectile.AddBehavior(new DamageModifierForTagModel("DamageModifierForTagModel", "Moabs", 1, 485, false, true));
-        attackModel.weapons[0].projectile.pierce += 1000;
-        attackModel.range += 50;
-        towerModel.range += 50;
-        attackModel.weapons[0].projectile.GetDamageModel().damage = 100.9f;
+        attackModel.range += 30;
+        towerModel.range += 30;
+        attackModel.weapons[0].rate = .5f;
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 30;
+        var Sword = Game.instance.model.GetTowerFromId("Sauda 20").GetAttackModel().Duplicate();
+        Sword.name = "Sword_Weapon";
+        towerModel.AddBehavior(Sword);
+        Sword.weapons[0].projectile.GetDamageModel().damage += 6;
+        Sword.weapons[0].projectile.pierce += 70;
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = BloonProperties.None;
     }
 
 }
 
 public class StarRod : ModParagonUpgrade<Kirby>
 {
-    public override int Cost => 1900019;
-    public override string Description => "'Wow What's This Cool Thing?'";
+    public override int Cost => 450000;
+    public override string Description => "Holds power many want but can it deal with the bloons?";
     public override string DisplayName => "The Star Rod";
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
         var attackModel = towerModel.GetAttackModel();
+        var weaponModel = towerModel.GetWeapon();
+
         var Ability = Game.instance.model.GetTowerFromId("Psi 20").GetAbilities()[1].Duplicate();
         Ability.maxActivationsPerRound = 9999999;
         Ability.canActivateBetweenRounds = true;
         Ability.resetCooldownOnTierUpgrade = true;
-        Ability.cooldown = 15;
+        Ability.cooldown = 60;
         Ability.icon = GetSpriteReference("KirbyPath4Icon_Icon");
         towerModel.AddBehavior(Ability);
 
-        attackModel.weapons[0].projectile.GetDamageModel().damage = 69599299;
-        attackModel.weapons[0].rate *= .1f;
-        attackModel.weapons[0].projectile.pierce = 9999999999999999999;
-        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
-       
-  
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 150;
+        attackModel.weapons[0].projectile.pierce = 250;
+        attackModel.weapons[0].rate = .2f;
+
+        var StarRod = Game.instance.model.GetTowerFromId("BallOfLightTower").GetAttackModel().Duplicate();
+        StarRod.range = towerModel.range;
+        StarRod.name = "StarRod";
+        StarRod.weapons[0].projectile.GetDamageModel().damage += 25;
+        towerModel.AddBehavior(StarRod);
+
+        towerModel.GetDescendants<FilterInvisibleModel>().ForEach(model => model.isActive = false);
+        towerModel.towerSelectionMenuThemeId = "Camo";
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = BloonProperties.None;
+
+        towerModel.RemoveBehavior<RateSupportModel>();
+
+        var buffM3 = new RateSupportModel("RateSupportModel_", 0.35f, true, "Village:Rate", false, 1, null, null, null);
+        buffM3.ApplyBuffIcon<StarRodBuffIcon>();
+        buffM3.name = "buffM3";
+        towerModel.AddBehavior(buffM3);
     }
 }

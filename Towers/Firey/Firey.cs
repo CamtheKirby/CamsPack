@@ -15,6 +15,7 @@ using Il2Cpp;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using System.Collections.Generic;
 using System.Linq;
+using Il2CppAssets.Scripts.Models.Towers.Filters;
 
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
@@ -149,7 +150,7 @@ public class FSBG : ModTower<CamsPack.BfdiTowers>
         var attackModel = towerModel.GetAttackModel();
         towerModel.isSubTower = true;
         towerModel.AddBehavior(new TowerExpireModel("ExpireModel", 40f, 1, false, false));
-        attackModel.weapons[0].projectile.GetDamageModel().damage = 45;
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 85;
         attackModel.weapons[0].rate = 0.7f;
         attackModel.weapons[0].projectile.ApplyDisplay<Laser2Display>();
     }
@@ -182,8 +183,8 @@ public class Firey : ModTower<CamsPack.BfdiTowers>
         var projectile = attackModel.weapons[0].projectile;
         attackModel.weapons[0].projectile = Game.instance.model.GetTower(TowerType.WizardMonkey, 0, 1, 0).GetAttackModel().weapons[0].projectile.Duplicate();
         attackModel.weapons[0].projectile.GetDamageModel().damage = 2;
-        projectile.GetDamageModel().immuneBloonProperties = BloonProperties.Purple;
         attackModel.weapons[0].projectile.ApplyDisplay<FireFDisplay>();
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties &= ~BloonProperties.Lead;
         var Fire = Game.instance.model.GetTower(TowerType.MortarMonkey, 0, 0, 2).GetAttackModel().weapons[0].projectile.GetBehavior<CreateProjectileOnExhaustFractionModel>().projectile.GetBehavior<AddBehaviorToBloonModel>();
         attackModel.weapons[0].projectile.AddBehavior(Fire);
         attackModel.weapons[0].projectile.collisionPasses = new[] { -1, 0 };
@@ -244,7 +245,7 @@ public class HomingFlames : ModUpgrade<Firey>
     public override string Portrait => "LuigiIcon";
     public override int Path => TOP;
     public override int Tier => 3;
-    public override int Cost => 2763;
+    public override int Cost => 2760;
     public override string Description => "His Fire now seek and gets +4 pierce and +2 Damage";
 
     public override void ApplyUpgrade(TowerModel towerModel)
@@ -280,7 +281,7 @@ public class ForestFire : ModUpgrade<Firey>
     public override string Portrait => "LuigiIcon";
     public override int Path => TOP;
     public override int Tier => 5;
-    public override int Cost => 15765;
+    public override int Cost => 35000;
     public override string Description => "That's a LOT of fire";
 
     public override void ApplyUpgrade(TowerModel towerModel)
@@ -394,7 +395,7 @@ public class ForestFire : ModUpgrade<Firey>
             public override int Path => MIDDLE;
             public override int Tier => 5;
             public override int Cost => 45000;
-            public override string Description => "Firey gets his Speaker Box Spawns faster and a Mega Speaker Box every 45 seconds.";
+            public override string Description => "Firey Spawns his Speaker Box faster and a Mega Speaker Box every 45 seconds.";
 
             public override void ApplyUpgrade(TowerModel towerModel)
             {
@@ -482,7 +483,7 @@ public class ForestFire : ModUpgrade<Firey>
             public override string Portrait => "LuigiIcon";
             public override int Path => BOTTOM;
             public override int Tier => 4;
-            public override int Cost => 355555;
+            public override int Cost => 10000;
             public override string Description => "Turns him into metal and adds x5 for price and damage and attacks faster";
 
             public override void ApplyUpgrade(TowerModel towerModel)
@@ -510,24 +511,23 @@ public class ForestFire : ModUpgrade<Firey>
             public override string Portrait => "LuigiIcon";
             public override int Path => BOTTOM;
             public override int Tier => 5;
-            public override int Cost => 700000;
+            public override int Cost => 350000;
             public override string Description => "The golden firey..";
 
             public override void ApplyUpgrade(TowerModel towerModel)
             {
                 var attackModel = towerModel.GetAttackModel();
                 attackModel.weapons[0].projectile.pierce *= 10;
-                attackModel.weapons[0].projectile.GetDamageModel().damage *= 10;
-                attackModel.weapons[0].rate -= 0.4f;
+                attackModel.weapons[0].projectile.GetDamageModel().damage *= 4;
+            //    attackModel.weapons[0].rate -= 0.3f;
                 attackModel.weapons[0].projectile.ApplyDisplay<FireFGDisplay>();
                 foreach (var attacks in towerModel.GetAttackModels())
                 {
                     if (attacks.name.Contains("FJ_Weapon"))
                     {
                         attacks.weapons[0].projectile.ApplyDisplay<FJGDisplay>();
-                        attacks.weapons[0].projectile.pierce *= 10;
-                        attacks.weapons[0].projectile.GetDamageModel().damage *= 10;
-                        attacks.weapons[0].rate -= 0.4f;
+                        attacks.weapons[0].projectile.pierce *= 5;
+                        attacks.weapons[0].projectile.GetDamageModel().damage *= 5;
                     }
                 }
             }
@@ -535,7 +535,7 @@ public class ForestFire : ModUpgrade<Firey>
 
         public class FB : ModParagonUpgrade<Firey>
         {
-            public override int Cost => 760765;
+            public override int Cost => 735000;
             public override string Description => "The strongest fire..";
             public override string DisplayName => "Firey Blue";
 
@@ -543,8 +543,8 @@ public class ForestFire : ModUpgrade<Firey>
             {
                 var attackModel = towerModel.GetAttackModel();
                 var projectile = attackModel.weapons[0].projectile;
-                towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel", true));
-                attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0; 
+                towerModel.GetDescendants<FilterInvisibleModel>().ForEach(model => model.isActive = false);
+                towerModel.towerSelectionMenuThemeId = "Camo";
                 projectile.GetDamageModel().immuneBloonProperties = BloonProperties.None;
 
                 var Ability = Game.instance.model.GetTower(TowerType.BombShooter, 0, 4, 0).GetAbilities()[0].Duplicate();
@@ -563,6 +563,8 @@ public class ForestFire : ModUpgrade<Firey>
                 Ability.icon = GetSpriteReference("FireyBoxGlcon");
 
                 towerModel.AddBehavior(Ability);
+
+                attackModel.weapons[0].rate = 0.4f;
             }
         }
     }

@@ -3,7 +3,7 @@ namespace CamsPack;
 public static class ModHelperData
 {
     public const string WorksOnVersion = "44";
-    public const string Version = "1.5.5";
+    public const string Version = "1.6.0";
     public const string Name = "Cams Pack!";
     public const string Dependencies = "doombubbles/paths-plus-plus";
     public const string Description = "Everything I made in a pack! (Discord: camthekirby)";

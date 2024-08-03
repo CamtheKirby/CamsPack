@@ -2,8 +2,10 @@ using BTD_Mod_Helper.Api.Display;
 using BTD_Mod_Helper.Api.Towers;
 using BTD_Mod_Helper.Extensions;
 using CamsPack;
+using Il2Cpp;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Filters;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Models.TowerSets;
 using Il2CppAssets.Scripts.Unity;
@@ -40,7 +42,7 @@ public class ShadowKirby : ModTower<KirbyTowers>
     public override int MiddlePathUpgrades => 5;
     public override int BottomPathUpgrades => 0;
     public override bool DontAddToShop => !Settings.OpTowers == true;
-    public override string Description => "....'The Bloons Are No Match For Me'....";
+    public override string Description => "(This is the OP version of Shadow Kirby the balanced version will be in the next update) Shadow Kirby got some power and is now trying destory all bloons";
 
     public override bool Use2DModel => true;
     public override string Icon => "SKIcon";
@@ -53,14 +55,14 @@ public class ShadowKirby : ModTower<KirbyTowers>
         attackModel.weapons[0].projectile = Game.instance.model.GetTower(TowerType.SuperMonkey, 2, 0, 5).GetAttackModel().weapons[0].projectile.Duplicate();
         attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
         attackModel.weapons[0].projectile.ApplyDisplay<ShadDisplay>();
-        towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel", true));
+        towerModel.GetDescendants<FilterInvisibleModel>().ForEach(model => model.isActive = false);
         towerModel.towerSelectionMenuThemeId = "Camo";
         attackModel.weapons[0].projectile.GetDamageModel().damage = 1500000;
         attackModel.range += 50;
         towerModel.range += 50;
         attackModel.weapons[0].projectile.pierce = 1000;
         towerModel.GetWeapon().projectile.AddBehavior(new DamageModifierForTagModel("DamageModifierForTagModel", "Moabs", 1, 185, false, true));
-        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = BloonProperties.None;
     }
 
     public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
@@ -88,7 +90,7 @@ public class ShadowRay : ModUpgrade<ShadowKirby>
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
-    public override string Description => "'Nice Now I Can Take These Bloons Down More easliy'";
+    public override string Description => "Gives Shadow Kirby a Ray attack";
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
@@ -112,7 +114,7 @@ public class ShadowMoney : ModUpgrade<ShadowKirby>
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
-    public override string Description => "'Here's Some Money Spend it Wisely...'";
+    public override string Description => "Shadow Kirby makes money";
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
@@ -135,7 +137,7 @@ public class ShadowSpread : ModUpgrade<ShadowKirby>
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
-    public override string Description => "'Even More Projectiles? SIGN ME UP!'";
+    public override string Description => "Gives Shadow Kirby More Projectiles";
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
@@ -168,14 +170,14 @@ public class ShadowCopy : ModUpgrade<ShadowKirby>
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
-    public override string Description => "'Little More Speed Is Perfect and I Guess I Help Others To...'";
+    public override string Description => "Attacks faster and buffs the other towers";
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
         var attackModel = towerModel.GetAttackModel();
         attackModel.weapons[0].rate *= .003f;
 
-        var buffM1S = new RateSupportModel("RateSupport1", 0.96f, true, "ShadowKirby:Rate", false, 1, null, null, null);
+        var buffM1S = new RateSupportModel("RateSupportModel_", 0.20f, true, "Village:Rate", false, 1, null, null, null);
         buffM1S.ApplyBuffIcon<SKirbyBuffIcon>();
         towerModel.AddBehavior(buffM1S);
 
@@ -193,7 +195,7 @@ public class ShadowDeath : ModUpgrade<ShadowKirby>
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
-    public override string Description => "'YES YES I FEEL THE POWER!'";
+    public override string Description => "Reaches his TRUE POWER!";
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {

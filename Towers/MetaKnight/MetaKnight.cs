@@ -18,6 +18,8 @@ using Kirby;
 using WaddleDee;
 using System.Collections.Generic;
 using System.Linq;
+using Il2Cpp;
+using Il2CppAssets.Scripts.Models.Towers.Filters;
 
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
@@ -47,7 +49,7 @@ public class MetaKnight : ModTower<CamsPack.KirbyTowers>
 {
    // public override TowerSet TowerSet => TowerSet.Magic;
     public override string BaseTower => TowerType.NinjaMonkey;
-    public override int Cost => 965;
+    public override int Cost => 1100;
     public override int TopPathUpgrades => 5;
     public override int MiddlePathUpgrades => 5;
     public override int BottomPathUpgrades => 5;
@@ -67,7 +69,7 @@ public class MetaKnight : ModTower<CamsPack.KirbyTowers>
         attackModel.weapons[0].projectile.GetDamageModel().damage = 3;
         attackModel.range = Game.instance.model.GetTower(TowerType.Sauda).GetAttackModel().range;
         towerModel.range = Game.instance.model.GetTower(TowerType.Sauda).range;
-        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = BloonProperties.Lead;
     }
     public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
     {
@@ -134,7 +136,7 @@ public class StrongerSlashing : ModUpgrade<MetaKnight>
     public override string Portrait => "LuigiIcon";
     public override int Path => TOP;
     public override int Tier => 2;
-    public override int Cost => 995;
+    public override int Cost => 870;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -143,8 +145,8 @@ public class StrongerSlashing : ModUpgrade<MetaKnight>
     public override void ApplyUpgrade(TowerModel towerModel)
     {
         var attackModel = towerModel.GetAttackModel();
-        attackModel.weapons[0].rate *= .4f;
-        attackModel.weapons[0].projectile.GetDamageModel().damage = 6;
+        attackModel.weapons[0].rate *= .8f;
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 1;
     }
 }
 
@@ -175,14 +177,14 @@ public class WingBashing : ModUpgrade<MetaKnight>
     }
 }
 
-public class SharpenSword : ModUpgrade<MetaKnight>
+public class SharpenedSword : ModUpgrade<MetaKnight>
 {
     // public override string Portrait => "Don't need to override this, using the default of Pair-Portrait.png";
     // public override string Icon => "Don't need to override this, using the default of Pair-Icon.png";
     public override string Portrait => "LuigiIcon";
     public override int Path => TOP;
     public override int Tier => 4;
-    public override int Cost => 56575;
+    public override int Cost => 3300;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -191,10 +193,10 @@ public class SharpenSword : ModUpgrade<MetaKnight>
     public override void ApplyUpgrade(TowerModel towerModel)
     {
         var attackModel = towerModel.GetAttackModel();
-        attackModel.weapons[0].rate *= .2f;
-        attackModel.weapons[0].projectile.GetDamageModel().damage = 10;
-        attackModel.range += 3;
-        towerModel.range += 3;
+        attackModel.weapons[0].rate *= .7f;
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 2;
+        attackModel.range += 5;
+        towerModel.range += 5;
     }
 }
 
@@ -205,7 +207,7 @@ public class GalactaPower : ModUpgrade<MetaKnight>
     public override string Portrait => "LuigiIcon";
     public override int Path => TOP;
     public override int Tier => 5;
-    public override int Cost => 498975;
+    public override int Cost => 30000;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -214,10 +216,10 @@ public class GalactaPower : ModUpgrade<MetaKnight>
     public override void ApplyUpgrade(TowerModel towerModel)
     {
         var attackModel = towerModel.GetAttackModel();
-        attackModel.weapons[0].rate *= .1f;
-        attackModel.weapons[0].projectile.GetDamageModel().damage = 50;
-        attackModel.range += 9;
-        towerModel.range += 9;
+        attackModel.weapons[0].rate *= .7f;
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 5;
+        attackModel.range += 10;
+        towerModel.range += 10;
     }
 }
 
@@ -228,7 +230,7 @@ public class LongerSword : ModUpgrade<MetaKnight>
     public override string Portrait => "LuigiIcon";
     public override int Path => MIDDLE;
     public override int Tier => 1;
-    public override int Cost => 499;
+    public override int Cost => 550;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -249,7 +251,7 @@ public class EvenLongerSword : ModUpgrade<MetaKnight>
     public override string Portrait => "LuigiIcon";
     public override int Path => MIDDLE;
     public override int Tier => 2;
-    public override int Cost => 799;
+    public override int Cost => 850;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -260,7 +262,7 @@ public class EvenLongerSword : ModUpgrade<MetaKnight>
         var attackModel = towerModel.GetAttackModel();
         attackModel.range += 20;
         towerModel.range += 20;
-        attackModel.weapons[0].projectile.pierce += 7;
+        attackModel.weapons[0].projectile.pierce += 10;
     }
 }
 
@@ -271,7 +273,7 @@ public class SyrupSword : ModUpgrade<MetaKnight>
     public override string Portrait => "LuigiIcon";
     public override int Path => MIDDLE;
     public override int Tier => 3;
-    public override int Cost => 5499;
+    public override int Cost => 5560;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -297,7 +299,7 @@ public class SitckyBloonuation : ModUpgrade<MetaKnight>
     public override string Portrait => "LuigiIcon";
     public override int Path => MIDDLE;
     public override int Tier => 4;
-    public override int Cost => 8999;
+    public override int Cost => 9000;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -311,7 +313,7 @@ public class SitckyBloonuation : ModUpgrade<MetaKnight>
         var Knockback = Game.instance.model.GetTowerFromId("NinjaMonkey-010").GetWeapon().projectile.GetBehavior<WindModel>().Duplicate<WindModel>();
         Knockback.chance = 0.5f;
         Knockback.distanceMin = 25;
-        Knockback.distanceMax = 50;
+        Knockback.distanceMax = 75;
         
         attackModel.weapons[0].projectile.AddBehavior(Knockback);
     }
@@ -324,7 +326,7 @@ public class AButterfly : ModUpgrade<MetaKnight>
     public override string Portrait => "LuigiIcon";
     public override int Path => MIDDLE;
     public override int Tier => 5;
-    public override int Cost => 463770;
+    public override int Cost => 450000;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -333,10 +335,10 @@ public class AButterfly : ModUpgrade<MetaKnight>
     public override void ApplyUpgrade(TowerModel towerModel)
     {
         var attackModel = towerModel.GetAttackModel();
-        attackModel.weapons[0].rate = .3f;
-        attackModel.range += 6;
-        towerModel.range += 6;
-        attackModel.weapons[0].projectile.GetDamageModel().damage = 65;
+        attackModel.weapons[0].rate = .4f;
+        attackModel.range += 12;
+        towerModel.range += 12;
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 40;
 
         var Ability = Game.instance.model.GetTower(TowerType.BombShooter, 0, 5, 0).GetAbilities()[0].Duplicate();
         Ability.maxActivationsPerRound = 9999999;
@@ -351,6 +353,8 @@ public class AButterfly : ModUpgrade<MetaKnight>
         Buttert.name = " Buttert_Weapon";
         Buttert.weapons[0].projectile.ApplyDisplay<BSDisplay>();
         towerModel.AddBehavior(Buttert);
+
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = BloonProperties.None;
     }
 }
 
@@ -361,7 +365,7 @@ public class SharperBlade : ModUpgrade<MetaKnight>
     public override string Portrait => "LuigiIcon";
     public override int Path => BOTTOM;
     public override int Tier => 1;
-    public override int Cost => 230;
+    public override int Cost => 300;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -381,7 +385,7 @@ public class SuperSharpedBlade : ModUpgrade<MetaKnight>
     public override string Portrait => "LuigiIcon";
     public override int Path => BOTTOM;
     public override int Tier => 2;
-    public override int Cost => 830;
+    public override int Cost => 1200;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -390,7 +394,7 @@ public class SuperSharpedBlade : ModUpgrade<MetaKnight>
     public override void ApplyUpgrade(TowerModel towerModel)
     {
         var attackModel = towerModel.GetAttackModel();
-        attackModel.weapons[0].projectile.pierce += 23;
+        attackModel.weapons[0].projectile.pierce += 25;
     }
 }
 
@@ -401,7 +405,7 @@ public class DarkMagic : ModUpgrade<MetaKnight>
     public override string Portrait => "LuigiIcon";
     public override int Path => BOTTOM;
     public override int Tier => 3;
-    public override int Cost => 7499;
+    public override int Cost => 15000;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -409,11 +413,15 @@ public class DarkMagic : ModUpgrade<MetaKnight>
 
      public override void ApplyUpgrade(TowerModel towerModel)
     {
+        var attackModel = towerModel.GetAttackModel();
         var DM = Game.instance.model.GetTowerFromId("WizardMonkey-402").GetAttackModel().Duplicate();
         DM.range = towerModel.range + 12; // Cool This Works
         DM.name = "DM_Weapon";
         DM.weapons[0].projectile.ApplyDisplay<DMDisplay>();
         towerModel.AddBehavior(DM);
+        attackModel.range += 10;
+        attackModel.weapons[0].projectile.pierce += 30;
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 1;
     }
 }
 public class DarkSword : ModUpgrade<MetaKnight>
@@ -423,7 +431,7 @@ public class DarkSword : ModUpgrade<MetaKnight>
     public override string Portrait => "LuigiIcon";
     public override int Path => BOTTOM;
     public override int Tier => 4;
-    public override int Cost => 13499;
+    public override int Cost => 16300;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -434,9 +442,10 @@ public class DarkSword : ModUpgrade<MetaKnight>
         var attackModel = towerModel.GetAttackModel();
         attackModel.weapons[0].rate = .4f;
         attackModel.weapons[0].projectile.pierce += 50;
-        attackModel.range += 15;
-        towerModel.range += 15;
-        attackModel.weapons[0].projectile.GetDamageModel().damage =+ 30;
+        attackModel.range += 20;
+        towerModel.range += 20;
+        attackModel.weapons[0].projectile.GetDamageModel().damage =+ 33;
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = BloonProperties.None;
     }
 }
 
@@ -447,7 +456,7 @@ public class OverTakingDarkness : ModUpgrade<MetaKnight>
     public override string Portrait => "LuigiIcon";
     public override int Path => BOTTOM;
     public override int Tier => 5;
-    public override int Cost => 93499;
+    public override int Cost => 480000;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -457,15 +466,15 @@ public class OverTakingDarkness : ModUpgrade<MetaKnight>
     {
         var attackModel = towerModel.GetAttackModel();
         attackModel.weapons[0].rate = .2f;
-        attackModel.weapons[0].projectile.pierce += 90;
-        attackModel.range += 5;
-        towerModel.range += 5;
-        attackModel.weapons[0].projectile.GetDamageModel().damage =+ 50;
+        attackModel.weapons[0].projectile.pierce += 30;
+        attackModel.range += 10;
+        towerModel.range += 10;
+        attackModel.weapons[0].projectile.GetDamageModel().damage =+ 35;
 
         var broThisIsTheMostEdgynessUpgradeever = Game.instance.model.GetTowerFromId("SentryParagon").GetAttackModel().Duplicate();
         broThisIsTheMostEdgynessUpgradeever.range = towerModel.range + 12;
         broThisIsTheMostEdgynessUpgradeever.name = "broThisIsTheMostEdgynessUpgradeever_Weapon";
-        broThisIsTheMostEdgynessUpgradeever.weapons[0].projectile.GetDamageModel().damage =+ 50;
+        broThisIsTheMostEdgynessUpgradeever.weapons[0].projectile.GetDamageModel().damage =+ 25;
         broThisIsTheMostEdgynessUpgradeever.ApplyDisplay<NothingDisplay>();
         towerModel.AddBehavior(broThisIsTheMostEdgynessUpgradeever);
     }
@@ -474,21 +483,23 @@ public class OverTakingDarkness : ModUpgrade<MetaKnight>
 
 public class KnightMerge : ModParagonUpgrade<MetaKnight>
 {
-    public override int Cost => 807144;
+    public override int Cost => 750000;
     public override string Description => "How About We Merge All the Knights!";
     public override string DisplayName => "The Merged Knight";
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
         var attackModel = towerModel.GetAttackModel();
-        attackModel.weapons[0].rate *= .1f;
-        attackModel.weapons[0].projectile.pierce += 490;
+        attackModel.weapons[0].rate *= .2f;
+        attackModel.weapons[0].projectile.pierce += 400;
         var Ability = Game.instance.model.GetTower(TowerType.MortarMonkey, 0, 5, 0).GetAbilities()[0].Duplicate();
         Ability.maxActivationsPerRound = 9999999;
         Ability.canActivateBetweenRounds = true;
         Ability.resetCooldownOnTierUpgrade = true;
-        Ability.cooldown = 15;
+        Ability.cooldown = 60;
         Ability.icon = GetSpriteReference("Butterfly_Icon");
         towerModel.AddBehavior(Ability);
+        towerModel.GetDescendants<FilterInvisibleModel>().ForEach(model => model.isActive = false);
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = BloonProperties.None;
     }
  }

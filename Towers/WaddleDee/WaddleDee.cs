@@ -16,6 +16,8 @@ using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using Il2Cpp;
+using Il2CppAssets.Scripts.Models.Towers.Filters;
 
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
@@ -45,7 +47,7 @@ public class WaddleDee : ModTower<KirbyTowers>
 {
     //public override TowerSet TowerSet => TowerSet.Support;
     public override string BaseTower => TowerType.DartMonkey;
-    public override int Cost => 785;
+    public override int Cost => 350;
     public override int TopPathUpgrades => 5;
     public override int MiddlePathUpgrades => 5;
     public override int BottomPathUpgrades => 0;
@@ -62,8 +64,7 @@ public class WaddleDee : ModTower<KirbyTowers>
         var attackModel = towerModel.GetAttackModel();
         attackModel.weapons[0].projectile = Game.instance.model.GetTower(TowerType.DartMonkey).GetAttackModel().weapons[0].projectile.Duplicate();
         attackModel.weapons[0].projectile.ApplyDisplay<WahDisplay>();
-        attackModel.weapons[0].rate *= .7f;
-        attackModel.weapons[0].projectile.GetDamageModel().damage = 2;
+        attackModel.weapons[0].rate *= .8f;
     }
     public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
     {
@@ -110,7 +111,7 @@ public class SharpWahing : ModUpgrade<WaddleDee>
     public override void ApplyUpgrade(TowerModel towerModel)
     {
         var attackModel = towerModel.GetAttackModel();
-        attackModel.weapons[0].projectile.pierce += 10;
+        attackModel.weapons[0].projectile.pierce += 5;
     }
 }
 
@@ -130,7 +131,7 @@ public class SharperWahing : ModUpgrade<WaddleDee>
     public override void ApplyUpgrade(TowerModel towerModel)
     {
         var attackModel = towerModel.GetAttackModel();
-        attackModel.weapons[0].projectile.pierce += 15;
+        attackModel.weapons[0].projectile.pierce += 10;
     }
 }
 
@@ -179,7 +180,7 @@ public class TheBandana : ModUpgrade<WaddleDee>
     public override void ApplyUpgrade(TowerModel towerModel)
     {
         var attackModel = towerModel.GetAttackModel();
-        attackModel.weapons[0].projectile.GetDamageModel().damage += 7;
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 5;
         attackModel.weapons[0].projectile.pierce += 10;
 
         foreach (var attacks in towerModel.GetAttackModels())
@@ -188,7 +189,7 @@ public class TheBandana : ModUpgrade<WaddleDee>
             {
                 attacks.weapons[0].projectile.GetDamageModel().damage += 7;
                 attacks.weapons[0].projectile.pierce += 10;
-                attacks.weapons[0].rate *= .5f;
+                attacks.weapons[0].rate *= .6f;
             }
 
         }
@@ -202,7 +203,7 @@ public class BandanaWaddleDee : ModUpgrade<WaddleDee>
     public override string Portrait => "LuigiIcon";
     public override int Path => TOP;
     public override int Tier => 5;
-    public override int Cost => 459975;
+    public override int Cost => 500000;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -213,7 +214,7 @@ public class BandanaWaddleDee : ModUpgrade<WaddleDee>
         var attackModel = towerModel.GetAttackModel();
         attackModel.weapons[0].projectile.GetDamageModel().damage += 10;
         attackModel.weapons[0].projectile.pierce += 30;
-        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = BloonProperties.None;
         foreach (var attacks in towerModel.GetAttackModels())
         {
             if (attacks.name.Contains("SpearDee"))
@@ -221,7 +222,7 @@ public class BandanaWaddleDee : ModUpgrade<WaddleDee>
                 attacks.weapons[0].projectile.GetDamageModel().damage += 20;
                 attacks.weapons[0].projectile.pierce += 80;
                 attacks.weapons[0].rate *= .3f;
-                attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
+                attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = BloonProperties.None;
             }
 
         }
@@ -246,7 +247,7 @@ public class StrongerWahing : ModUpgrade<WaddleDee>
     public override void ApplyUpgrade(TowerModel towerModel)
     {
         var attackModel = towerModel.GetAttackModel();
-        attackModel.weapons[0].projectile.GetDamageModel().damage += 3;
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 2;
     }
 }
 
@@ -267,7 +268,7 @@ public class PiercingWah : ModUpgrade<WaddleDee>
     {
         var attackModel = towerModel.GetAttackModel();
         attackModel.weapons[0].projectile.pierce += 5;
-        towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel", true));
+        towerModel.GetDescendants<FilterInvisibleModel>().ForEach(model => model.isActive = false);
         towerModel.towerSelectionMenuThemeId = "Camo";
     }
 }
@@ -303,7 +304,7 @@ public class DoubleWah : ModUpgrade<WaddleDee>
     public override string Portrait => "LuigiIcon";
     public override int Path => MIDDLE;
     public override int Tier => 4;
-    public override int Cost => 7860;
+    public override int Cost => 7950;
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
@@ -339,7 +340,7 @@ public class GoldenDee : ModUpgrade<WaddleDee>
     public override string Portrait => "LuigiIcon";
     public override int Path => MIDDLE;
     public override int Tier => 5;
-    public override int Cost => 559960;
+    public override int Cost => 600000;
 
         
         // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
@@ -394,7 +395,7 @@ public class SliverDee : UpgradePlusPlus<WaddledeeMiddlePath>
     // public override string Icon => "Don't need to override this, using the default of Pair-Icon.png";
     public override string Portrait => "LuigiIcon";
     public override int Tier => 6;
-    public override int Cost => 757500;
+    public override int Cost => 85000;
 
     public override string Container => UpgradeContainerPlatinum;
 

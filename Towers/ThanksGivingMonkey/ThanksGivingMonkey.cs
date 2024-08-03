@@ -81,8 +81,8 @@ public class Eggs2 : ModTower
         towerModel.RemoveBehavior<AttackModel>();
         var MoneyE2 = Game.instance.model.GetTowerFromId("BananaFarm-300").GetAttackModel().Duplicate();
         MoneyE2.name = "Eggy";
-        MoneyE2.weapons[0].projectile.GetBehavior<CashModel>().maximum = 150;
-        MoneyE2.weapons[0].projectile.GetBehavior<CashModel>().minimum = 150;
+        MoneyE2.weapons[0].projectile.GetBehavior<CashModel>().maximum = 90;
+        MoneyE2.weapons[0].projectile.GetBehavior<CashModel>().minimum = 90;
         towerModel.AddBehavior(MoneyE2);
         towerModel.AddBehavior(new CollectCashZoneModel("CollectCashZoneModel_", 45, 19, 3, "", true, true, true, true));
         towerModel.isSubTower = true;
@@ -423,7 +423,7 @@ public class BurntTurkeyLegs : ModUpgrade<ThanksgivingMonkey>
     public override string Portrait => "LuigiIcon";
     public override int Path => MIDDLE;
     public override int Tier => 4;
-    public override int Cost => 62980;
+    public override int Cost => 59000;
     public override string Description => "(Set it to normal so it works) The turkey legs Burn the bloons and do more damage";
 
     public override void ApplyUpgrade(TowerModel towerModel)
@@ -456,7 +456,7 @@ public class GourmetTurkeyLegs : ModUpgrade<ThanksgivingMonkey>
     public override string Portrait => "LuigiIcon";
     public override int Path => MIDDLE;
     public override int Tier => 5;
-    public override int Cost => 99800;
+    public override int Cost => 65000;
     public override string Description => "(Set it to normal so it works) Shoots slower but packs a punch and pierce gets better";
 
     public override void ApplyUpgrade(TowerModel towerModel)
@@ -564,7 +564,7 @@ public class TurkeyFactory : ModUpgrade<ThanksgivingMonkey>
     public override string Portrait => "LuigiIcon";
     public override int Path => BOTTOM;
     public override int Tier => 5;
-    public override int Cost => 75595;
+    public override int Cost => 70000;
     public override string Description => "The mass production..";
 
     public override void ApplyUpgrade(TowerModel towerModel)
@@ -581,7 +581,7 @@ public class TurkeyFactory : ModUpgrade<ThanksgivingMonkey>
 
 public class TGG : ModParagonUpgrade<ThanksgivingMonkey>
 {
-    public override int Cost => 797950;
+    public override int Cost => 750000;
     public override string Description => "The best thanksgiving for the monkeys...";
     public override string DisplayName => "THE THANKSGIVING MASTER";
 
@@ -601,9 +601,9 @@ public class TGG : ModParagonUpgrade<ThanksgivingMonkey>
         attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
         LeafP.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
         LeafP.weapons[0].projectile.GetDamageModel().damage += 10;
-        attackModel.weapons[0].projectile.GetDamageModel().damage += 50;
-        attackModel.weapons[0].rate *= .1f;
-        LeafP.weapons[0].rate *= .2f;
+        attackModel.weapons[0].projectile.GetDamageModel().damage += 30;
+        attackModel.weapons[0].rate *= .3f;
+        LeafP.weapons[0].rate *= .3f;
         LeafP.weapons[0].projectile.pierce += 300;
         attackModel.weapons[0].projectile.pierce += 300;
         attackModel.range += 50;

@@ -7,15 +7,7 @@ using BTD_Mod_Helper.Api;
 using BTD_Mod_Helper.Api.Data;
 using BTD_Mod_Helper.Api.ModOptions;
 using BTD_Mod_Helper.Api.Towers;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine.Video;
-using UnityEngine;
-using Il2CppAssets.Scripts.Models.Effects;
-using Il2Cpp;
-using NAudio.SoundFont;
 [assembly: MelonInfo(typeof(CamsPack.CamsPack), ModHelperData.Name, ModHelperData.Version, ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
@@ -23,7 +15,6 @@ namespace CamsPack;
 
 public class CamsPack : BloonsTD6Mod
 {
-
     public override void OnApplicationStart()
     {
         /*GameObject camera = GameObject.Find("Camera");
@@ -31,7 +22,7 @@ public class CamsPack : BloonsTD6Mod
         var videoPlayer = camera.AddComponent<VideoPlayer>();
         videoPlayer.url = "family guy glock in my rari but they actually sing it";
         videoPlayer.Play(); */
-        
+
         ModHelper.Msg<CamsPack>("CamsPack loaded! Why are you reading this?");
       
     }

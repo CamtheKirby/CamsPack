@@ -42,7 +42,7 @@ public class DarkMonkey : ModTower<CamsPack.JokeTowers>
 {
    // public override TowerSet TowerSet => TowerSet.Primary;
     public override string BaseTower => TowerType.DartMonkey;
-    public override int Cost => 675;
+    public override int Cost => 875;
     public override int TopPathUpgrades => 5;
     public override int MiddlePathUpgrades => 5;
     public override int BottomPathUpgrades => 5;
@@ -55,6 +55,8 @@ public class DarkMonkey : ModTower<CamsPack.JokeTowers>
     public override void ModifyBaseTowerModel(TowerModel towerModel)
     {
         var attackModel = towerModel.GetAttackModel();
+
+    
         attackModel.weapons[0].projectile = Game.instance.model.GetTower(TowerType.DartMonkey).GetAttackModel().weapons[0].projectile.Duplicate();
         attackModel.range = 40;
         towerModel.range = 40;

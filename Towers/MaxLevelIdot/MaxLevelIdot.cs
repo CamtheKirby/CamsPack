@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors;
 using Kirby;
 using CamsPack;
+using Il2CppAssets.Scripts.Models.Towers.Filters;
 
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
@@ -124,7 +125,7 @@ public class DartlingGunner250 : ModTower
     public override void ModifyBaseTowerModel(TowerModel towerModel)
     {
         towerModel.isSubTower = true;
-        towerModel.AddBehavior(new TowerExpireModel("ExpireModel", 25f, 1, false, false));
+        towerModel.AddBehavior(new TowerExpireModel("ExpireModel", 15f, 1, false, false));
     }
     public class DG250Display : ModTowerDisplay<DartlingGunner250>
     {
@@ -262,7 +263,7 @@ public class Level1000Boss : ModUpgrade<MaxLevelIdot>
     public override string Portrait => "LuigiIcon";
     public override int Path => TOP;
     public override int Tier => 5;
-    public override int Cost => 46850;
+    public override int Cost => 45000;
     public override string Description => "Max Levels Up to the 1000 Level Boss of the Mafia";
 
     public override void ApplyUpgrade(TowerModel towerModel)
@@ -361,7 +362,7 @@ public class StickyArmy : ModUpgrade<MaxLevelIdot>
     public override string Portrait => "LuigiIcon";
     public override int Path => MIDDLE;
     public override int Tier => 5;
-    public override int Cost => 57500;
+    public override int Cost => 60000;
     public override string Description => "Max Summons Sticky Bombs to Destroy Moab Class Bloons";
 
     public override void ApplyUpgrade(TowerModel towerModel)
@@ -417,16 +418,17 @@ public class EvenMoreIq : ModUpgrade<MaxLevelIdot>
         attackModel.range += 15;
         towerModel.range += 15;
         towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel", true));
+        towerModel.towerSelectionMenuThemeId = "Camo";
     }
 }
 
-public class BTD7 : ModUpgrade<MaxLevelIdot>
+public class Jeremiah : ModUpgrade<MaxLevelIdot>
 {
     public override string Portrait => "LuigiIcon";
     public override int Path => BOTTOM;
     public override int Tier => 3;
-    public override int Cost => 12480;
-    public override string Description => "Max Gets Early Access to BTD7";
+    public override int Cost => 15000;
+    public override string Description => "Jeremiah gives Max Gets Early Access to BTD7 and some weapons";
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {
@@ -448,7 +450,7 @@ public class Hank : ModUpgrade<MaxLevelIdot>
     public override string Portrait => "LuigiIcon";
     public override int Path => BOTTOM;
     public override int Tier => 4;
-    public override int Cost => 15290;
+    public override int Cost => 17000;
     public override string Description => "Max Works With Hank to Make the Bloons Weaker";
 
     public override void ApplyUpgrade(TowerModel towerModel)
@@ -456,7 +458,7 @@ public class Hank : ModUpgrade<MaxLevelIdot>
         var attackModel = towerModel.GetAttackModel();
         attackModel.range += 10;
         towerModel.range += 10;
-        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = BloonProperties.None;
 
         var C2 = Game.instance.model.GetTowerFromId("IceMonkey-420").GetAttackModel().Duplicate();
         C2.range = towerModel.range;
@@ -471,7 +473,7 @@ public class MrMaxIdot : ModUpgrade<MaxLevelIdot>
     public override string Portrait => "LuigiIcon";
     public override int Path => BOTTOM;
     public override int Tier => 5;
-    public override int Cost => 762480;
+    public override int Cost => 350000;
     public override string Description => "The President Of Monkey City";
 
     public override void ApplyUpgrade(TowerModel towerModel)
@@ -490,7 +492,7 @@ public class MrMaxIdot : ModUpgrade<MaxLevelIdot>
 
 public class D : ModParagonUpgrade<MaxLevelIdot>
 {
-    public override int Cost => 1700000;
+    public override int Cost => 800000;
     public override string Description => "Djungelskog... the TRUE Monkeys Lord and Savior";
     public override string DisplayName => "Djungelskog";
 
@@ -505,9 +507,9 @@ public class D : ModParagonUpgrade<MaxLevelIdot>
         Ability.icon = GetSpriteReference("D-Icon");
         towerModel.AddBehavior(Ability);
 
-        attackModel.weapons[0].projectile.GetDamageModel().damage = 500;
-        attackModel.weapons[0].rate *= .2f;    
-        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
+        attackModel.weapons[0].projectile.GetDamageModel().damage = 100;
+        attackModel.weapons[0].rate *= .3f;
+        attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = BloonProperties.None;
 
         var minon4 = Game.instance.model.GetTowerFromId("EngineerMonkey-200").GetAttackModels()[1].Duplicate();
         minon4.range = towerModel.range;
