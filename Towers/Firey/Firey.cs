@@ -543,7 +543,7 @@ public class ForestFire : ModUpgrade<Firey>
             {
                 var attackModel = towerModel.GetAttackModel();
                 var projectile = attackModel.weapons[0].projectile;
-                towerModel.GetDescendants<FilterInvisibleModel>().ForEach(model => model.isActive = false);
+                towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel", true));
                 towerModel.towerSelectionMenuThemeId = "Camo";
                 projectile.GetDamageModel().immuneBloonProperties = BloonProperties.None;
 

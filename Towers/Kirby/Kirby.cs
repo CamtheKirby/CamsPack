@@ -299,7 +299,7 @@ public class MoreReach : ModUpgrade<Kirby>
         var attackModel = towerModel.GetAttackModel();
         attackModel.range *= 1.3f;
         towerModel.range *= 1.3f;
-        towerModel.GetDescendants<FilterInvisibleModel>().ForEach(model => model.isActive = false);
+        towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel", true));
         towerModel.towerSelectionMenuThemeId = "Camo";
     }
 }
@@ -461,7 +461,7 @@ public class BombAbility : ModUpgrade<Kirby>
         weapon.weapons[0].Rate = 8;
         weapon.name = "BombA";
         towerModel.AddBehavior(weapon);
-        towerModel.GetDescendants<FilterInvisibleModel>().ForEach(model => model.isActive = false);
+        towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel", true));
         towerModel.towerSelectionMenuThemeId = "Camo";
     }
 
@@ -578,7 +578,7 @@ public class StarRod : ModParagonUpgrade<Kirby>
         StarRod.weapons[0].projectile.GetDamageModel().damage += 25;
         towerModel.AddBehavior(StarRod);
 
-        towerModel.GetDescendants<FilterInvisibleModel>().ForEach(model => model.isActive = false);
+        towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel", true));
         towerModel.towerSelectionMenuThemeId = "Camo";
         attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = BloonProperties.None;
 

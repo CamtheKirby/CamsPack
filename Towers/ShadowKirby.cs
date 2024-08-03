@@ -55,7 +55,7 @@ public class ShadowKirby : ModTower<KirbyTowers>
         attackModel.weapons[0].projectile = Game.instance.model.GetTower(TowerType.SuperMonkey, 2, 0, 5).GetAttackModel().weapons[0].projectile.Duplicate();
         attackModel.weapons[0].projectile.GetDamageModel().immuneBloonProperties = 0;
         attackModel.weapons[0].projectile.ApplyDisplay<ShadDisplay>();
-        towerModel.GetDescendants<FilterInvisibleModel>().ForEach(model => model.isActive = false);
+        towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel", true));
         towerModel.towerSelectionMenuThemeId = "Camo";
         attackModel.weapons[0].projectile.GetDamageModel().damage = 1500000;
         attackModel.range += 50;

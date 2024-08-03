@@ -268,7 +268,7 @@ public class PiercingWah : ModUpgrade<WaddleDee>
     {
         var attackModel = towerModel.GetAttackModel();
         attackModel.weapons[0].projectile.pierce += 5;
-        towerModel.GetDescendants<FilterInvisibleModel>().ForEach(model => model.isActive = false);
+        towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel", true));
         towerModel.towerSelectionMenuThemeId = "Camo";
     }
 }
