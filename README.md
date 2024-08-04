@@ -36,7 +36,7 @@ Q: Why do the 2D towers rotate weirdly
 
 A: idk and I don't know how to fix that
 
-Q: Why is your so bad
+Q: Why is the mod so bad
 
 A: I tried my best I don't really know C# so the quality of my mod won't be as good as other modders
 
