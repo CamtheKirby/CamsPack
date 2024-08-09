@@ -24,6 +24,7 @@ A: Maybe it depends on the idea
 ̶
 ̶A̶:̶ ̶t̶h̶e̶ ̶t̶e̶x̶t̶u̶r̶e̶ ̶w̶a̶s̶n̶'̶t̶ ̶w̶o̶r̶k̶i̶n̶g̶ ̶f̶o̶r̶ ̶s̶o̶m̶e̶ ̶r̶e̶a̶s̶o̶n̶ ̶y̶o̶u̶ ̶c̶a̶n̶ ̶l̶o̶o̶k̶ ̶a̶t̶ ̶i̶t̶ ̶[here](https://github.com/CamtheKirby/CamsPack/blob/1.6.1/Assets/DarkMonkey-Img/DarkMonkeyDisplay.png)
 ̶
+
 (The Dark Monkey has its own texture now)
 
 Q: Why are there so many 2D towers and why are the towers blurry
