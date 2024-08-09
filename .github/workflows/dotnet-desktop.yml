@@ -8,7 +8,7 @@ on:
       - '*'
 
 env:
-  PROJECT_NAME: UpgradableShootyTurret
+  PROJECT_NAME: CamsPack
   
   MOD_HELPER_NAME: Btd6ModHelper
   BLOONSTD6: ./BloonsTD6
@@ -105,19 +105,3 @@ jobs:
 
       - name: Build
         run: dotnet build -c Release -p:BloonsTD6="../${{ env.BLOONSTD6 }}" "${{ env.PROJECT_NAME }}/${{ env.PROJECT_NAME }}.csproj"
-
-
-      - name: Upload Mod DLL
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ env.PROJECT_NAME }}.dll
-          path: ${{ env.BLOONSTD6 }}/Mods/${{ env.PROJECT_NAME }}.dll
-
-
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: ${{ env.BLOONSTD6 }}/Mods/${{ env.PROJECT_NAME }}.dll
-          body_path: ${{ env.PROJECT_NAME }}/LATEST.md
-          fail_on_unmatched_files: true
