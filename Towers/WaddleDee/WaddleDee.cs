@@ -18,6 +18,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Il2Cpp;
 using Il2CppAssets.Scripts.Models.Towers.Filters;
+using BTD_Mod_Helper;
 
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
@@ -68,8 +69,17 @@ public class WaddleDee : ModTower<KirbyTowers>
     }
     public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
     {
-        return towerSet.First(model => model.towerId == TowerType.Druid).towerIndex + 1;
+        return towerSet.First(model => model.towerId == TowerType.Mermonkey).towerIndex + 1;
     }
+
+    /*public override bool IsValidCrosspath(int[] tiers)
+    {
+        if (!Settings.Crosspath)
+        {
+            return false;
+        }
+        return ModHelper.HasMod("UltimateCrosspathing") || base.IsValidCrosspath(tiers);
+    } */
     public override string Get2DTexture(int[] tiers)
     {
         if (tiers[0] == 3)
@@ -175,7 +185,7 @@ public class TheBandana : ModUpgrade<WaddleDee>
 
     // public override string DisplayName => "Don't need to override this, the default turns it into 'Pair'"
 
-    public override string Description => "Waddle Dee Gets Blue Bandana to get more price and damage";
+    public override string Description => "Waddle Dee Gets Blue Bandana to get more pierce and damage";
 
     public override void ApplyUpgrade(TowerModel towerModel)
     {

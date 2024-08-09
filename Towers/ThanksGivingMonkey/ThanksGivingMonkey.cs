@@ -16,6 +16,7 @@ using System.Linq;
 using Kirby;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions;
 using TGMonkey.ForthPath;
+using BTD_Mod_Helper;
 
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
@@ -234,6 +235,15 @@ public class ThanksgivingMonkey : ModTower<CamsTowers>
     {
         return towerSet.First(model => model.towerId == TowerType.GlueGunner).towerIndex + 1;
     }
+
+  /*  public override bool IsValidCrosspath(int[] tiers)
+    {
+        if (!Settings.Crosspath)
+        {
+            return false;
+        }
+        return ModHelper.HasMod("UltimateCrosspathing") || base.IsValidCrosspath(tiers); 
+    } */
     public override string Get2DTexture(int[] tiers)
     {
         if (tiers[0] == 3)

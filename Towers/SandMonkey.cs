@@ -19,6 +19,7 @@ using Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions;
 using CamsPack;
 using BTD_Mod_Helper.Api.ModOptions;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors;
+using BTD_Mod_Helper;
 
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
@@ -58,6 +59,15 @@ public class SandMonkey : ModTower<CamsPack.CamsTowers>
     {
         return towerSet.First(model => model.towerId == TowerType.GlueGunner).towerIndex + 1;
     }
+
+   /* public override bool IsValidCrosspath(int[] tiers)
+    {
+        if (!Settings.Crosspath)
+        {
+            return false;
+        }
+        return ModHelper.HasMod("UltimateCrosspathing") || base.IsValidCrosspath(tiers);
+    } */
 
     public class SandMonkeyDisplay : ModTowerDisplay<SandMonkey>
     {

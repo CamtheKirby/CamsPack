@@ -12,6 +12,7 @@ using Il2CppAssets.Scripts.Unity;
 using Il2CppAssets.Scripts.Unity.Display;
 using Il2CppSystem.Linq;
 using PathsPlusPlus;
+using System.Linq;
 
 namespace BananaGun;
 public class Banan : ModDisplay
@@ -29,6 +30,7 @@ public class Banan3 : ModDisplay
     public override string BaseDisplay => "0d60d713eef3d3043915b89b35b04670";
 }
 
+
 public class BananaGun : UpgradePlusPlus<BananaGunPath>
 {
     public override int Cost => 1800;
@@ -45,12 +47,17 @@ public class BananaGun : UpgradePlusPlus<BananaGunPath>
         BGun.name = "BGun_Weapon";
         BGun.weapons[0].projectile.ApplyDisplay<Banan>();
         towerModel.AddBehavior(BGun);
+    }
+    public class BananaGunDisplay : ModDisplay
+    {
 
-        if (IsHighestUpgrade(towerModel))
-        {
-
+        public override string BaseDisplay => GetDisplay(TowerType.BananaFarm);
+        public override void ModifyDisplayNode(UnityDisplayNode node)
+        {  
+            SetMeshTexture(node, "BananaGunDisplay", 1);
         }
     }
+}
     public class RiperGun : UpgradePlusPlus<BananaGunPath>
     {
         public override int Cost => 570;
@@ -71,11 +78,6 @@ public class BananaGun : UpgradePlusPlus<BananaGunPath>
                     attacks.weapons[0].projectile.GetDamageModel().damage += 2;
                     attacks.weapons[0].projectile.ApplyDisplay<Banan2>();
                 }
-            }
-
-                if (IsHighestUpgrade(towerModel))
-            {
-
             }
         }
 
@@ -100,11 +102,6 @@ public class BananaGun : UpgradePlusPlus<BananaGunPath>
                         attacks.weapons[0].projectile.GetDamageModel().damage += 2;
                     }
                 }
-
-                if (IsHighestUpgrade(towerModel))
-                {
-
-                }
             }
 
             public class PackagedBananas : UpgradePlusPlus<BananaGunPath>
@@ -127,11 +124,6 @@ public class BananaGun : UpgradePlusPlus<BananaGunPath>
                             attacks.weapons[0].projectile.GetDamageModel().damage += 6;
                             attacks.weapons[0].projectile.ApplyDisplay<Banan3>();
                         }
-                    }
-
-                    if (IsHighestUpgrade(towerModel))
-                    {
-
                     }
             }
          }
@@ -156,13 +148,7 @@ public class BananaGun : UpgradePlusPlus<BananaGunPath>
                             attacks.weapons[0].rate *= .4f;
                         }
                     }
-
-                    if (IsHighestUpgrade(towerModel))
-                    {
-
-                    }
                 }
             }
         }
-    }
 }

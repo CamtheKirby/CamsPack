@@ -1,3 +1,4 @@
+using BTD_Mod_Helper;
 using BTD_Mod_Helper.Api.Display;
 using BTD_Mod_Helper.Api.Towers;
 using BTD_Mod_Helper.Extensions;
@@ -67,8 +68,10 @@ public class ShadowKirby : ModTower<KirbyTowers>
 
     public override int GetTowerIndex(List<TowerDetailsModel> towerSet)
     {
-        return towerSet.First(model => model.towerId == TowerType.Druid).towerIndex + 1;
+        return towerSet.First(model => model.towerId == TowerType.Mermonkey).towerIndex + 1;
     }
+
+
     public override string Get2DTexture(int[] tiers)
     {
         //if (tiers[3] == 1)

@@ -17,14 +17,8 @@ public class CamsPack : BloonsTD6Mod
 {
     public override void OnApplicationStart()
     {
-        /*GameObject camera = GameObject.Find("Camera");
-        
-        var videoPlayer = camera.AddComponent<VideoPlayer>();
-        videoPlayer.url = "family guy glock in my rari but they actually sing it";
-        videoPlayer.Play(); */
-
         ModHelper.Msg<CamsPack>("CamsPack loaded! Why are you reading this?");
-      
+
     }
 }
 
@@ -49,7 +43,7 @@ public class KirbyTowers : ModTowerSet
 
 public class BfdiTowers : ModTowerSet
 {
-    public override string DisplayName => "BFDI Towers";
+    public override string DisplayName => "Object Show Towers";
     public int GetTowerSetIndex(List<string> towerSets)
     {
         return towerSets.IndexOf("Magic");
@@ -78,22 +72,32 @@ public class YoutubeTowers : ModTowerSet
 
 public class Settings : ModSettings
 {
-    public static readonly ModSettingBool OpTowers = new(false)
+   /* public static readonly ModSettingBool Crosspath = new(false)
+    {
+        displayName = "Ultimate Crosspathing",
+        description = "If you want ultimate crosspathing to be applied to every tower (RESTART GAME TO APPLY)",
+        requiresRestart = true,
+        button = true,
+    }; */
+    public static readonly ModSettingBool OpTowers = new(true)
     {
         displayName = "Op Towers",
-        description = "If you want OP Towers or not (Shadow Kirby) (RESTART GAME TO APPLY)",
+        description = "If you want OP Towers or not (RESTART GAME TO APPLY)",
+        requiresRestart = true,
         button = true,
     };
     public static readonly ModSettingBool UselessTowers = new(true)
     {
         displayName = "Useless Towers",
-        description = "If you want useless towers or not (Sleepy Monkey) (RESTART GAME TO APPLY)",
+        description = "If you want useless towers or not(RESTART GAME TO APPLY)",
+        requiresRestart = true,
         button = true,
     };
     public static readonly ModSettingBool UnfinshedTowers = new(false)
     {
         displayName = "Unfinshed Towers",
-        description = "If you want unfinshed towers towers or not (Sand Monekey) (RESTART GAME TO APPLY)",
+        description = "If you want unfinshed towers towers or not (RESTART GAME TO APPLY)",
+        requiresRestart = true,
         button = true,
     };
 }
