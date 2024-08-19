@@ -12,7 +12,7 @@ public static class ModHelperData
         " New Paths," +
         " New Bloons, and" +
         " New Gamemodes" +
-        " (DM on discord if there's any problems with this mod Discord: camthekirby)";
+        " (DM on discord if there's any problems with this mod Discord: camthekirby) Credit: Nintendo (The Kirby characters), jacknjellify (Firey), u/PawaMV (The Dark Monkey Idea not the paragon), MaxLevelIdot (MaxLevelIdot)";
 
     public const string RepoOwner = "CamtheKirby"; // TODO add your github username hero, also in the download url in README.md
     public const string RepoName = "CamsPack"; // TODO add your repo name here, also in the download url in README.md
